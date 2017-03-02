@@ -7,9 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * 服务启动类
  */
-public class ZhengUpmsRpcServiceApplication {
+public class BossUpmsRpcServiceApplication {
 
-	private static Logger _log = LoggerFactory.getLogger(ZhengUpmsRpcServiceApplication.class);
+	private static Logger _log = LoggerFactory.getLogger(BossUpmsRpcServiceApplication.class);
 
 	public static void main(String[] args) {
 		_log.info(">>>>> boss-upms-rpc-service 正在启动 <<<<<");
