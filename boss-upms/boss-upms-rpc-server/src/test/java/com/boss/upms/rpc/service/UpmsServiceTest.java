@@ -1,4 +1,4 @@
-package com.zheng.upms.server;
+package com.boss.upms.rpc.service;
 
 import com.boss.upms.dao.model.UpmsSystemExample;
 import com.boss.upms.rpc.api.UpmsSystemService;
@@ -16,7 +16,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({
         "classpath:applicationContext.xml",
-        "classpath:applicationContext-dubbo-consumer.xml"
+        "classpath:applicationContext-jdbc.xml",
+        "classpath:applicationContext-listener.xml"
 })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class UpmsServiceTest {
