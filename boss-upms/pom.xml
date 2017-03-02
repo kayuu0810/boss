@@ -17,6 +17,7 @@
 
   <name>boss-upms</name>
   <url>http://maven.apache.org</url>
+  <description>企业管理信息系统</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
