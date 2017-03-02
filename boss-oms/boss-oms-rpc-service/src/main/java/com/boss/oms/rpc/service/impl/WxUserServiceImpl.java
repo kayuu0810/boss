@@ -3,7 +3,7 @@ package com.boss.oms.rpc.service.impl;
 import com.boss.common.annotation.BaseService;
 import com.boss.common.base.BaseServiceImpl;
 import com.boss.oms.dao.mapper.TWxUserMapper;
-import com.boss.oms.dao.mapper.WxUserMapper;
+import com.boss.oms.dao.mapper.WxUserVOMapper;
 import com.boss.oms.dao.model.TWxUser;
 import com.boss.oms.dao.model.TWxUserExample;
 import com.boss.oms.dao.model.WxUserVO;
@@ -26,18 +26,12 @@ import java.util.List;
 @BaseService
 public class WxUserServiceImpl extends BaseServiceImpl<TWxUserMapper,TWxUser,TWxUserExample> implements WxUserService {
     private static Logger _log = LoggerFactory.getLogger(WxUserServiceImpl.class);
-
     @Autowired
-    private WxUserMapper wxUserMapper;
-    @Autowired
-    private TWxUserMapper tWxUserMapper;
-
+    private WxUserVOMapper wxUserMapper;
 
   @Cacheable(value="boss-oms-ehcache")
     public List<WxUserVO> selectWxUserList() {
         _log.info("selectWxUserList>>>>>");
-      List<TWxUser> tWxUsers = tWxUserMapper.selectByExample(new TWxUserExample());
-      System.out.println(tWxUsers.size()+"@11111");
       return wxUserMapper.selectWxUserList();
     }
 }

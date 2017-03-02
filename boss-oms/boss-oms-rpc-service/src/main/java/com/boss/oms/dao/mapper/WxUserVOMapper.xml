@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.boss.oms.dao.mapper.WxUserMapper">
+<mapper namespace="com.boss.oms.dao.mapper.WxUserVOMapper">
 
 	<resultMap id="BaseResultMap" type="com.boss.oms.dao.model.WxUserVO">
 		<id column="ID" jdbcType="INTEGER" property="id" />
@@ -24,7 +24,7 @@
 
 
 	<select id="selectWxUserList" resultMap="BaseResultMap">
-		select * from t_wx_user;
+		select * from t_wx_user
 	</select>
 	<!-- 缓存 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />

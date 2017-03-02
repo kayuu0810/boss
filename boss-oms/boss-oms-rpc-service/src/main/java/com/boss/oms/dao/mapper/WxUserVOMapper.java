@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Kayuu on 2017/3/2.
  */
-public interface WxUserMapper {
+public interface WxUserVOMapper {
     /**
      * 获取微信用户集合
      * @return

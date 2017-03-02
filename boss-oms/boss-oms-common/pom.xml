@@ -27,7 +27,7 @@
     </dependencies>
 
     <build>
-        <finalName>boss-cms-common</finalName>
+        <finalName>boss-oms-common</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
