@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TWxMessageMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TWxMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="msg_direction" jdbcType="CHAR" property="msgDirection" />
+    <result column="fans_open_id" jdbcType="VARCHAR" property="fansOpenId" />
+    <result column="account_originid" jdbcType="VARCHAR" property="accountOriginid" />
+    <result column="msg_type" jdbcType="VARCHAR" property="msgType" />
+    <result column="mp_created_time" jdbcType="TIMESTAMP" property="mpCreatedTime" />
+    <result column="mp_msg_id" jdbcType="VARCHAR" property="mpMsgId" />
+    <result column="event" jdbcType="VARCHAR" property="event" />
+    <result column="event_key" jdbcType="VARCHAR" property="eventKey" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
+    <result column="format" jdbcType="VARCHAR" property="format" />
+    <result column="thumb_media_id" jdbcType="VARCHAR" property="thumbMediaId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="ticket" jdbcType="VARCHAR" property="ticket" />
+    <result column="pos_latitude" jdbcType="DECIMAL" property="posLatitude" />
+    <result column="pos_longitude" jdbcType="DECIMAL" property="posLongitude" />
+    <result column="pos_precision" jdbcType="DECIMAL" property="posPrecision" />
+    <result column="pos_scale" jdbcType="DECIMAL" property="posScale" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="reply_type" jdbcType="CHAR" property="replyType" />
+    <result column="reply_media_id" jdbcType="DECIMAL" property="replyMediaId" />
+    <result column="origin_msg_id" jdbcType="DECIMAL" property="originMsgId" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.boss.oms.dao.model.TWxMessage">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="recognition" jdbcType="LONGVARCHAR" property="recognition" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, msg_direction, fans_open_id, account_originid, msg_type, mp_created_time, mp_msg_id, 
+    event, event_key, pic_url, media_id, format, thumb_media_id, title, url, ticket, 
+    pos_latitude, pos_longitude, pos_precision, pos_scale, label, reply_type, reply_media_id, 
+    origin_msg_id, created_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content, description, recognition
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.boss.oms.dao.model.TWxMessageExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_wx_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TWxMessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_wx_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_wx_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_wx_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TWxMessageExample">
+    delete from t_wx_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TWxMessage">
+    insert into t_wx_message (id, msg_direction, fans_open_id, 
+      account_originid, msg_type, mp_created_time, 
+      mp_msg_id, event, event_key, 
+      pic_url, media_id, format, 
+      thumb_media_id, title, url, 
+      ticket, pos_latitude, pos_longitude, 
+      pos_precision, pos_scale, label, 
+      reply_type, reply_media_id, origin_msg_id, 
+      created_time, content, description, 
+      recognition)
+    values (#{id,jdbcType=INTEGER}, #{msgDirection,jdbcType=CHAR}, #{fansOpenId,jdbcType=VARCHAR}, 
+      #{accountOriginid,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, #{mpCreatedTime,jdbcType=TIMESTAMP}, 
+      #{mpMsgId,jdbcType=VARCHAR}, #{event,jdbcType=VARCHAR}, #{eventKey,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{mediaId,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{thumbMediaId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{ticket,jdbcType=VARCHAR}, #{posLatitude,jdbcType=DECIMAL}, #{posLongitude,jdbcType=DECIMAL}, 
+      #{posPrecision,jdbcType=DECIMAL}, #{posScale,jdbcType=DECIMAL}, #{label,jdbcType=VARCHAR}, 
+      #{replyType,jdbcType=CHAR}, #{replyMediaId,jdbcType=DECIMAL}, #{originMsgId,jdbcType=DECIMAL}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
+      #{recognition,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TWxMessage">
+    insert into t_wx_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="msgDirection != null">
+        msg_direction,
+      </if>
+      <if test="fansOpenId != null">
+        fans_open_id,
+      </if>
+      <if test="accountOriginid != null">
+        account_originid,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="mpCreatedTime != null">
+        mp_created_time,
+      </if>
+      <if test="mpMsgId != null">
+        mp_msg_id,
+      </if>
+      <if test="event != null">
+        event,
+      </if>
+      <if test="eventKey != null">
+        event_key,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+      <if test="mediaId != null">
+        media_id,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="thumbMediaId != null">
+        thumb_media_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="ticket != null">
+        ticket,
+      </if>
+      <if test="posLatitude != null">
+        pos_latitude,
+      </if>
+      <if test="posLongitude != null">
+        pos_longitude,
+      </if>
+      <if test="posPrecision != null">
+        pos_precision,
+      </if>
+      <if test="posScale != null">
+        pos_scale,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="replyType != null">
+        reply_type,
+      </if>
+      <if test="replyMediaId != null">
+        reply_media_id,
+      </if>
+      <if test="originMsgId != null">
+        origin_msg_id,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="recognition != null">
+        recognition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="msgDirection != null">
+        #{msgDirection,jdbcType=CHAR},
+      </if>
+      <if test="fansOpenId != null">
+        #{fansOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOriginid != null">
+        #{accountOriginid,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="mpCreatedTime != null">
+        #{mpCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mpMsgId != null">
+        #{mpMsgId,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null">
+        #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventKey != null">
+        #{eventKey,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null">
+        #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbMediaId != null">
+        #{thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null">
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="posLatitude != null">
+        #{posLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="posLongitude != null">
+        #{posLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="posPrecision != null">
+        #{posPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="posScale != null">
+        #{posScale,jdbcType=DECIMAL},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="replyType != null">
+        #{replyType,jdbcType=CHAR},
+      </if>
+      <if test="replyMediaId != null">
+        #{replyMediaId,jdbcType=DECIMAL},
+      </if>
+      <if test="originMsgId != null">
+        #{originMsgId,jdbcType=DECIMAL},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recognition != null">
+        #{recognition,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TWxMessageExample" resultType="java.lang.Long">
+    select count(*) from t_wx_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_wx_message
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgDirection != null">
+        msg_direction = #{record.msgDirection,jdbcType=CHAR},
+      </if>
+      <if test="record.fansOpenId != null">
+        fans_open_id = #{record.fansOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountOriginid != null">
+        account_originid = #{record.accountOriginid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgType != null">
+        msg_type = #{record.msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpCreatedTime != null">
+        mp_created_time = #{record.mpCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mpMsgId != null">
+        mp_msg_id = #{record.mpMsgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.event != null">
+        event = #{record.event,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventKey != null">
+        event_key = #{record.eventKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picUrl != null">
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaId != null">
+        media_id = #{record.mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.format != null">
+        format = #{record.format,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbMediaId != null">
+        thumb_media_id = #{record.thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticket != null">
+        ticket = #{record.ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posLatitude != null">
+        pos_latitude = #{record.posLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.posLongitude != null">
+        pos_longitude = #{record.posLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.posPrecision != null">
+        pos_precision = #{record.posPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="record.posScale != null">
+        pos_scale = #{record.posScale,jdbcType=DECIMAL},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyType != null">
+        reply_type = #{record.replyType,jdbcType=CHAR},
+      </if>
+      <if test="record.replyMediaId != null">
+        reply_media_id = #{record.replyMediaId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.originMsgId != null">
+        origin_msg_id = #{record.originMsgId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdTime != null">
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.recognition != null">
+        recognition = #{record.recognition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_wx_message
+    set id = #{record.id,jdbcType=INTEGER},
+      msg_direction = #{record.msgDirection,jdbcType=CHAR},
+      fans_open_id = #{record.fansOpenId,jdbcType=VARCHAR},
+      account_originid = #{record.accountOriginid,jdbcType=VARCHAR},
+      msg_type = #{record.msgType,jdbcType=VARCHAR},
+      mp_created_time = #{record.mpCreatedTime,jdbcType=TIMESTAMP},
+      mp_msg_id = #{record.mpMsgId,jdbcType=VARCHAR},
+      event = #{record.event,jdbcType=VARCHAR},
+      event_key = #{record.eventKey,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      media_id = #{record.mediaId,jdbcType=VARCHAR},
+      format = #{record.format,jdbcType=VARCHAR},
+      thumb_media_id = #{record.thumbMediaId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      ticket = #{record.ticket,jdbcType=VARCHAR},
+      pos_latitude = #{record.posLatitude,jdbcType=DECIMAL},
+      pos_longitude = #{record.posLongitude,jdbcType=DECIMAL},
+      pos_precision = #{record.posPrecision,jdbcType=DECIMAL},
+      pos_scale = #{record.posScale,jdbcType=DECIMAL},
+      label = #{record.label,jdbcType=VARCHAR},
+      reply_type = #{record.replyType,jdbcType=CHAR},
+      reply_media_id = #{record.replyMediaId,jdbcType=DECIMAL},
+      origin_msg_id = #{record.originMsgId,jdbcType=DECIMAL},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      recognition = #{record.recognition,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_wx_message
+    set id = #{record.id,jdbcType=INTEGER},
+      msg_direction = #{record.msgDirection,jdbcType=CHAR},
+      fans_open_id = #{record.fansOpenId,jdbcType=VARCHAR},
+      account_originid = #{record.accountOriginid,jdbcType=VARCHAR},
+      msg_type = #{record.msgType,jdbcType=VARCHAR},
+      mp_created_time = #{record.mpCreatedTime,jdbcType=TIMESTAMP},
+      mp_msg_id = #{record.mpMsgId,jdbcType=VARCHAR},
+      event = #{record.event,jdbcType=VARCHAR},
+      event_key = #{record.eventKey,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      media_id = #{record.mediaId,jdbcType=VARCHAR},
+      format = #{record.format,jdbcType=VARCHAR},
+      thumb_media_id = #{record.thumbMediaId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      ticket = #{record.ticket,jdbcType=VARCHAR},
+      pos_latitude = #{record.posLatitude,jdbcType=DECIMAL},
+      pos_longitude = #{record.posLongitude,jdbcType=DECIMAL},
+      pos_precision = #{record.posPrecision,jdbcType=DECIMAL},
+      pos_scale = #{record.posScale,jdbcType=DECIMAL},
+      label = #{record.label,jdbcType=VARCHAR},
+      reply_type = #{record.replyType,jdbcType=CHAR},
+      reply_media_id = #{record.replyMediaId,jdbcType=DECIMAL},
+      origin_msg_id = #{record.originMsgId,jdbcType=DECIMAL},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TWxMessage">
+    update t_wx_message
+    <set>
+      <if test="msgDirection != null">
+        msg_direction = #{msgDirection,jdbcType=CHAR},
+      </if>
+      <if test="fansOpenId != null">
+        fans_open_id = #{fansOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOriginid != null">
+        account_originid = #{accountOriginid,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="mpCreatedTime != null">
+        mp_created_time = #{mpCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mpMsgId != null">
+        mp_msg_id = #{mpMsgId,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null">
+        event = #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventKey != null">
+        event_key = #{eventKey,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null">
+        media_id = #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbMediaId != null">
+        thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null">
+        ticket = #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="posLatitude != null">
+        pos_latitude = #{posLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="posLongitude != null">
+        pos_longitude = #{posLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="posPrecision != null">
+        pos_precision = #{posPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="posScale != null">
+        pos_scale = #{posScale,jdbcType=DECIMAL},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="replyType != null">
+        reply_type = #{replyType,jdbcType=CHAR},
+      </if>
+      <if test="replyMediaId != null">
+        reply_media_id = #{replyMediaId,jdbcType=DECIMAL},
+      </if>
+      <if test="originMsgId != null">
+        origin_msg_id = #{originMsgId,jdbcType=DECIMAL},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recognition != null">
+        recognition = #{recognition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.boss.oms.dao.model.TWxMessage">
+    update t_wx_message
+    set msg_direction = #{msgDirection,jdbcType=CHAR},
+      fans_open_id = #{fansOpenId,jdbcType=VARCHAR},
+      account_originid = #{accountOriginid,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      mp_created_time = #{mpCreatedTime,jdbcType=TIMESTAMP},
+      mp_msg_id = #{mpMsgId,jdbcType=VARCHAR},
+      event = #{event,jdbcType=VARCHAR},
+      event_key = #{eventKey,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      media_id = #{mediaId,jdbcType=VARCHAR},
+      format = #{format,jdbcType=VARCHAR},
+      thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      ticket = #{ticket,jdbcType=VARCHAR},
+      pos_latitude = #{posLatitude,jdbcType=DECIMAL},
+      pos_longitude = #{posLongitude,jdbcType=DECIMAL},
+      pos_precision = #{posPrecision,jdbcType=DECIMAL},
+      pos_scale = #{posScale,jdbcType=DECIMAL},
+      label = #{label,jdbcType=VARCHAR},
+      reply_type = #{replyType,jdbcType=CHAR},
+      reply_media_id = #{replyMediaId,jdbcType=DECIMAL},
+      origin_msg_id = #{originMsgId,jdbcType=DECIMAL},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      recognition = #{recognition,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TWxMessage">
+    update t_wx_message
+    set msg_direction = #{msgDirection,jdbcType=CHAR},
+      fans_open_id = #{fansOpenId,jdbcType=VARCHAR},
+      account_originid = #{accountOriginid,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      mp_created_time = #{mpCreatedTime,jdbcType=TIMESTAMP},
+      mp_msg_id = #{mpMsgId,jdbcType=VARCHAR},
+      event = #{event,jdbcType=VARCHAR},
+      event_key = #{eventKey,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      media_id = #{mediaId,jdbcType=VARCHAR},
+      format = #{format,jdbcType=VARCHAR},
+      thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      ticket = #{ticket,jdbcType=VARCHAR},
+      pos_latitude = #{posLatitude,jdbcType=DECIMAL},
+      pos_longitude = #{posLongitude,jdbcType=DECIMAL},
+      pos_precision = #{posPrecision,jdbcType=DECIMAL},
+      pos_scale = #{posScale,jdbcType=DECIMAL},
+      label = #{label,jdbcType=VARCHAR},
+      reply_type = #{replyType,jdbcType=CHAR},
+      reply_media_id = #{replyMediaId,jdbcType=DECIMAL},
+      origin_msg_id = #{originMsgId,jdbcType=DECIMAL},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TSalPolicyRiskMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TSalPolicyRisk">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="POLICY_ID" jdbcType="BIGINT" property="policyId" />
+    <result column="RISK_CODE" jdbcType="VARCHAR" property="riskCode" />
+    <result column="RISK_NAME" jdbcType="VARCHAR" property="riskName" />
+    <result column="RISK_PLAN_NAME" jdbcType="VARCHAR" property="riskPlanName" />
+    <result column="RISK_DESC" jdbcType="VARCHAR" property="riskDesc" />
+    <result column="RISK_PLAN_CODE" jdbcType="VARCHAR" property="riskPlanCode" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="PREMIUM" jdbcType="DECIMAL" property="premium" />
+    <result column="REBATE_RATIO" jdbcType="DECIMAL" property="rebateRatio" />
+    <result column="REBATE_PREMIUM" jdbcType="DECIMAL" property="rebatePremium" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="LAST_UPDATE_USER" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, POLICY_ID, RISK_CODE, RISK_NAME, RISK_PLAN_NAME, RISK_DESC, RISK_PLAN_CODE, AMOUNT, 
+    PREMIUM, REBATE_RATIO, REBATE_PREMIUM, STATUS, CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, 
+    LAST_UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TSalPolicyRiskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sal_policy_risk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sal_policy_risk
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sal_policy_risk
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TSalPolicyRiskExample">
+    delete from t_sal_policy_risk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TSalPolicyRisk">
+    insert into t_sal_policy_risk (ID, POLICY_ID, RISK_CODE, 
+      RISK_NAME, RISK_PLAN_NAME, RISK_DESC, 
+      RISK_PLAN_CODE, AMOUNT, PREMIUM, 
+      REBATE_RATIO, REBATE_PREMIUM, STATUS, 
+      CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, 
+      LAST_UPDATE_DATE)
+    values (#{id,jdbcType=BIGINT}, #{policyId,jdbcType=BIGINT}, #{riskCode,jdbcType=VARCHAR}, 
+      #{riskName,jdbcType=VARCHAR}, #{riskPlanName,jdbcType=VARCHAR}, #{riskDesc,jdbcType=VARCHAR}, 
+      #{riskPlanCode,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{premium,jdbcType=DECIMAL}, 
+      #{rebateRatio,jdbcType=DECIMAL}, #{rebatePremium,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TSalPolicyRisk">
+    insert into t_sal_policy_risk
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="policyId != null">
+        POLICY_ID,
+      </if>
+      <if test="riskCode != null">
+        RISK_CODE,
+      </if>
+      <if test="riskName != null">
+        RISK_NAME,
+      </if>
+      <if test="riskPlanName != null">
+        RISK_PLAN_NAME,
+      </if>
+      <if test="riskDesc != null">
+        RISK_DESC,
+      </if>
+      <if test="riskPlanCode != null">
+        RISK_PLAN_CODE,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+      <if test="premium != null">
+        PREMIUM,
+      </if>
+      <if test="rebateRatio != null">
+        REBATE_RATIO,
+      </if>
+      <if test="rebatePremium != null">
+        REBATE_PREMIUM,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="policyId != null">
+        #{policyId,jdbcType=BIGINT},
+      </if>
+      <if test="riskCode != null">
+        #{riskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="riskName != null">
+        #{riskName,jdbcType=VARCHAR},
+      </if>
+      <if test="riskPlanName != null">
+        #{riskPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="riskDesc != null">
+        #{riskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="riskPlanCode != null">
+        #{riskPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="premium != null">
+        #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="rebateRatio != null">
+        #{rebateRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="rebatePremium != null">
+        #{rebatePremium,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TSalPolicyRiskExample" resultType="java.lang.Long">
+    select count(*) from t_sal_policy_risk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_sal_policy_risk
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.policyId != null">
+        POLICY_ID = #{record.policyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.riskCode != null">
+        RISK_CODE = #{record.riskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskName != null">
+        RISK_NAME = #{record.riskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskPlanName != null">
+        RISK_PLAN_NAME = #{record.riskPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskDesc != null">
+        RISK_DESC = #{record.riskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskPlanCode != null">
+        RISK_PLAN_CODE = #{record.riskPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        AMOUNT = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.premium != null">
+        PREMIUM = #{record.premium,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rebateRatio != null">
+        REBATE_RATIO = #{record.rebateRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rebatePremium != null">
+        REBATE_PREMIUM = #{record.rebatePremium,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_sal_policy_risk
+    set ID = #{record.id,jdbcType=BIGINT},
+      POLICY_ID = #{record.policyId,jdbcType=BIGINT},
+      RISK_CODE = #{record.riskCode,jdbcType=VARCHAR},
+      RISK_NAME = #{record.riskName,jdbcType=VARCHAR},
+      RISK_PLAN_NAME = #{record.riskPlanName,jdbcType=VARCHAR},
+      RISK_DESC = #{record.riskDesc,jdbcType=VARCHAR},
+      RISK_PLAN_CODE = #{record.riskPlanCode,jdbcType=VARCHAR},
+      AMOUNT = #{record.amount,jdbcType=DECIMAL},
+      PREMIUM = #{record.premium,jdbcType=DECIMAL},
+      REBATE_RATIO = #{record.rebateRatio,jdbcType=DECIMAL},
+      REBATE_PREMIUM = #{record.rebatePremium,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TSalPolicyRisk">
+    update t_sal_policy_risk
+    <set>
+      <if test="policyId != null">
+        POLICY_ID = #{policyId,jdbcType=BIGINT},
+      </if>
+      <if test="riskCode != null">
+        RISK_CODE = #{riskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="riskName != null">
+        RISK_NAME = #{riskName,jdbcType=VARCHAR},
+      </if>
+      <if test="riskPlanName != null">
+        RISK_PLAN_NAME = #{riskPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="riskDesc != null">
+        RISK_DESC = #{riskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="riskPlanCode != null">
+        RISK_PLAN_CODE = #{riskPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="premium != null">
+        PREMIUM = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="rebateRatio != null">
+        REBATE_RATIO = #{rebateRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="rebatePremium != null">
+        REBATE_PREMIUM = #{rebatePremium,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TSalPolicyRisk">
+    update t_sal_policy_risk
+    set POLICY_ID = #{policyId,jdbcType=BIGINT},
+      RISK_CODE = #{riskCode,jdbcType=VARCHAR},
+      RISK_NAME = #{riskName,jdbcType=VARCHAR},
+      RISK_PLAN_NAME = #{riskPlanName,jdbcType=VARCHAR},
+      RISK_DESC = #{riskDesc,jdbcType=VARCHAR},
+      RISK_PLAN_CODE = #{riskPlanCode,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      PREMIUM = #{premium,jdbcType=DECIMAL},
+      REBATE_RATIO = #{rebateRatio,jdbcType=DECIMAL},
+      REBATE_PREMIUM = #{rebatePremium,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

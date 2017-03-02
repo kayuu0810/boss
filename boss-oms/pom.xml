@@ -7,9 +7,11 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>boss-oms-admin</module>
-    <module>boss-oms-rpc-server</module>
+    <module>boss-oms-rpc-service</module>
     <module>boss-oms-dao</module>
     <module>boss-oms-common</module>
+      <module>boss-oms-rpc-api</module>
+      <module>boss-oms-job</module>
   </modules>
   <packaging>pom</packaging>
 

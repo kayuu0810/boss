@@ -24,7 +24,7 @@ public class MybatisGeneratorUtil {
 	// 项目名称
 	private static String PROJECT_NAME = "boss";
 	// 数据库名称
-	private static String DATABASE_NAME = "boss";
+	private static String DATABASE_NAME = "sjtb_v2_sit";
 
 	/**
 	 * 根据模板生成generatorConfig.xml文件
@@ -37,7 +37,7 @@ public class MybatisGeneratorUtil {
 			String jdbc_password,
 			String module_prefix_name) {
 		String module_path = PROJECT_NAME + "-" + module_prefix_name.replaceAll("\\.", "-") + "/" + PROJECT_NAME + "-" + module_prefix_name.replaceAll("\\.", "-") + "-dao/src/main/resources/generatorConfig.xml";
-		String sql = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + DATABASE_NAME + "' AND table_name LIKE '" + module_prefix_name.replaceAll("\\.", "_") + "_%';";
+		String sql = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + DATABASE_NAME + "' AND table_name LIKE '" +  "t_%';";
 		System.out.println("========== 开始生成generatorConfig.xml文件 ==========");
 		try {
 			VelocityContext context= new VelocityContext();

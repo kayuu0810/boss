@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TBizSalesmanTeamMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TBizSalesmanTeam">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CAPTAIN_OPEN_ID" jdbcType="VARCHAR" property="captainOpenId" />
+    <result column="ROOT_OPEN_ID" jdbcType="VARCHAR" property="rootOpenId" />
+    <result column="UPPER_OPEN_ID" jdbcType="VARCHAR" property="upperOpenId" />
+    <result column="SALESMAN_OPEN_ID" jdbcType="VARCHAR" property="salesmanOpenId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CAPTAIN_OPEN_ID, ROOT_OPEN_ID, UPPER_OPEN_ID, SALESMAN_OPEN_ID, CREATE_DATE, 
+    UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TBizSalesmanTeamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_biz_salesman_team
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_biz_salesman_team
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_biz_salesman_team
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TBizSalesmanTeamExample">
+    delete from t_biz_salesman_team
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TBizSalesmanTeam">
+    insert into t_biz_salesman_team (ID, CAPTAIN_OPEN_ID, ROOT_OPEN_ID, 
+      UPPER_OPEN_ID, SALESMAN_OPEN_ID, CREATE_DATE, 
+      UPDATE_DATE)
+    values (#{id,jdbcType=BIGINT}, #{captainOpenId,jdbcType=VARCHAR}, #{rootOpenId,jdbcType=VARCHAR}, 
+      #{upperOpenId,jdbcType=VARCHAR}, #{salesmanOpenId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TBizSalesmanTeam">
+    insert into t_biz_salesman_team
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="captainOpenId != null">
+        CAPTAIN_OPEN_ID,
+      </if>
+      <if test="rootOpenId != null">
+        ROOT_OPEN_ID,
+      </if>
+      <if test="upperOpenId != null">
+        UPPER_OPEN_ID,
+      </if>
+      <if test="salesmanOpenId != null">
+        SALESMAN_OPEN_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="captainOpenId != null">
+        #{captainOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="rootOpenId != null">
+        #{rootOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="upperOpenId != null">
+        #{upperOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmanOpenId != null">
+        #{salesmanOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TBizSalesmanTeamExample" resultType="java.lang.Long">
+    select count(*) from t_biz_salesman_team
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_biz_salesman_team
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.captainOpenId != null">
+        CAPTAIN_OPEN_ID = #{record.captainOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rootOpenId != null">
+        ROOT_OPEN_ID = #{record.rootOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upperOpenId != null">
+        UPPER_OPEN_ID = #{record.upperOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesmanOpenId != null">
+        SALESMAN_OPEN_ID = #{record.salesmanOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_biz_salesman_team
+    set ID = #{record.id,jdbcType=BIGINT},
+      CAPTAIN_OPEN_ID = #{record.captainOpenId,jdbcType=VARCHAR},
+      ROOT_OPEN_ID = #{record.rootOpenId,jdbcType=VARCHAR},
+      UPPER_OPEN_ID = #{record.upperOpenId,jdbcType=VARCHAR},
+      SALESMAN_OPEN_ID = #{record.salesmanOpenId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TBizSalesmanTeam">
+    update t_biz_salesman_team
+    <set>
+      <if test="captainOpenId != null">
+        CAPTAIN_OPEN_ID = #{captainOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="rootOpenId != null">
+        ROOT_OPEN_ID = #{rootOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="upperOpenId != null">
+        UPPER_OPEN_ID = #{upperOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmanOpenId != null">
+        SALESMAN_OPEN_ID = #{salesmanOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TBizSalesmanTeam">
+    update t_biz_salesman_team
+    set CAPTAIN_OPEN_ID = #{captainOpenId,jdbcType=VARCHAR},
+      ROOT_OPEN_ID = #{rootOpenId,jdbcType=VARCHAR},
+      UPPER_OPEN_ID = #{upperOpenId,jdbcType=VARCHAR},
+      SALESMAN_OPEN_ID = #{salesmanOpenId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TempUserBankInfoMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TempUserBankInfo">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="old_user_bank_code" jdbcType="VARCHAR" property="oldUserBankCode" />
+    <result column="old_user_bank_name" jdbcType="VARCHAR" property="oldUserBankName" />
+    <result column="new_user_bank_code" jdbcType="VARCHAR" property="newUserBankCode" />
+    <result column="new_user_bank_name" jdbcType="VARCHAR" property="newUserBankName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, old_user_bank_code, old_user_bank_name, new_user_bank_code, new_user_bank_name
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TempUserBankInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from temp_user_bank_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TempUserBankInfoExample">
+    delete from temp_user_bank_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TempUserBankInfo">
+    insert into temp_user_bank_info (id, old_user_bank_code, old_user_bank_name, 
+      new_user_bank_code, new_user_bank_name)
+    values (#{id,jdbcType=BIGINT}, #{oldUserBankCode,jdbcType=VARCHAR}, #{oldUserBankName,jdbcType=VARCHAR}, 
+      #{newUserBankCode,jdbcType=VARCHAR}, #{newUserBankName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TempUserBankInfo">
+    insert into temp_user_bank_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="oldUserBankCode != null">
+        old_user_bank_code,
+      </if>
+      <if test="oldUserBankName != null">
+        old_user_bank_name,
+      </if>
+      <if test="newUserBankCode != null">
+        new_user_bank_code,
+      </if>
+      <if test="newUserBankName != null">
+        new_user_bank_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="oldUserBankCode != null">
+        #{oldUserBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="oldUserBankName != null">
+        #{oldUserBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="newUserBankCode != null">
+        #{newUserBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="newUserBankName != null">
+        #{newUserBankName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TempUserBankInfoExample" resultType="java.lang.Long">
+    select count(*) from temp_user_bank_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update temp_user_bank_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.oldUserBankCode != null">
+        old_user_bank_code = #{record.oldUserBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oldUserBankName != null">
+        old_user_bank_name = #{record.oldUserBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newUserBankCode != null">
+        new_user_bank_code = #{record.newUserBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newUserBankName != null">
+        new_user_bank_name = #{record.newUserBankName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update temp_user_bank_info
+    set id = #{record.id,jdbcType=BIGINT},
+      old_user_bank_code = #{record.oldUserBankCode,jdbcType=VARCHAR},
+      old_user_bank_name = #{record.oldUserBankName,jdbcType=VARCHAR},
+      new_user_bank_code = #{record.newUserBankCode,jdbcType=VARCHAR},
+      new_user_bank_name = #{record.newUserBankName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

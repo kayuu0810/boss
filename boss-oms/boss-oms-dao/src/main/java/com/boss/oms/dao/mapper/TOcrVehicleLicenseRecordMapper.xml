@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TOcrVehicleLicenseRecordMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TOcrVehicleLicenseRecord">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="TRANS_NO" jdbcType="VARCHAR" property="transNo" />
+    <result column="PLATE_NO" jdbcType="VARCHAR" property="plateNo" />
+    <result column="VEHICLE_TYPE" jdbcType="VARCHAR" property="vehicleType" />
+    <result column="OWNER" jdbcType="VARCHAR" property="owner" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="USE_CHARACTER" jdbcType="VARCHAR" property="useCharacter" />
+    <result column="MODEL" jdbcType="VARCHAR" property="model" />
+    <result column="VIN" jdbcType="VARCHAR" property="vin" />
+    <result column="ENGINE_NO" jdbcType="VARCHAR" property="engineNo" />
+    <result column="REGISTER_DATE" jdbcType="VARCHAR" property="registerDate" />
+    <result column="ISSUE_DATE" jdbcType="VARCHAR" property="issueDate" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, TRANS_NO, PLATE_NO, VEHICLE_TYPE, OWNER, ADDRESS, USE_CHARACTER, MODEL, VIN, 
+    ENGINE_NO, REGISTER_DATE, ISSUE_DATE, CREATE_TIME, CREATE_BY, UPDATE_TIME, UPDATE_BY
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_ocr_vehicle_license_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ocr_vehicle_license_record
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_ocr_vehicle_license_record
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecordExample">
+    delete from t_ocr_vehicle_license_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecord">
+    insert into t_ocr_vehicle_license_record (ID, TRANS_NO, PLATE_NO, 
+      VEHICLE_TYPE, OWNER, ADDRESS, 
+      USE_CHARACTER, MODEL, VIN, 
+      ENGINE_NO, REGISTER_DATE, ISSUE_DATE, 
+      CREATE_TIME, CREATE_BY, UPDATE_TIME, 
+      UPDATE_BY)
+    values (#{id,jdbcType=BIGINT}, #{transNo,jdbcType=VARCHAR}, #{plateNo,jdbcType=VARCHAR}, 
+      #{vehicleType,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{useCharacter,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{vin,jdbcType=VARCHAR}, 
+      #{engineNo,jdbcType=VARCHAR}, #{registerDate,jdbcType=VARCHAR}, #{issueDate,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecord">
+    insert into t_ocr_vehicle_license_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="transNo != null">
+        TRANS_NO,
+      </if>
+      <if test="plateNo != null">
+        PLATE_NO,
+      </if>
+      <if test="vehicleType != null">
+        VEHICLE_TYPE,
+      </if>
+      <if test="owner != null">
+        OWNER,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="useCharacter != null">
+        USE_CHARACTER,
+      </if>
+      <if test="model != null">
+        MODEL,
+      </if>
+      <if test="vin != null">
+        VIN,
+      </if>
+      <if test="engineNo != null">
+        ENGINE_NO,
+      </if>
+      <if test="registerDate != null">
+        REGISTER_DATE,
+      </if>
+      <if test="issueDate != null">
+        ISSUE_DATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="transNo != null">
+        #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNo != null">
+        #{plateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null">
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="useCharacter != null">
+        #{useCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null">
+        #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="engineNo != null">
+        #{engineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null">
+        #{registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="issueDate != null">
+        #{issueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecordExample" resultType="java.lang.Long">
+    select count(*) from t_ocr_vehicle_license_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_ocr_vehicle_license_record
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.transNo != null">
+        TRANS_NO = #{record.transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNo != null">
+        PLATE_NO = #{record.plateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleType != null">
+        VEHICLE_TYPE = #{record.vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null">
+        OWNER = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useCharacter != null">
+        USE_CHARACTER = #{record.useCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        MODEL = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vin != null">
+        VIN = #{record.vin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engineNo != null">
+        ENGINE_NO = #{record.engineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerDate != null">
+        REGISTER_DATE = #{record.registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issueDate != null">
+        ISSUE_DATE = #{record.issueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_ocr_vehicle_license_record
+    set ID = #{record.id,jdbcType=BIGINT},
+      TRANS_NO = #{record.transNo,jdbcType=VARCHAR},
+      PLATE_NO = #{record.plateNo,jdbcType=VARCHAR},
+      VEHICLE_TYPE = #{record.vehicleType,jdbcType=VARCHAR},
+      OWNER = #{record.owner,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      USE_CHARACTER = #{record.useCharacter,jdbcType=VARCHAR},
+      MODEL = #{record.model,jdbcType=VARCHAR},
+      VIN = #{record.vin,jdbcType=VARCHAR},
+      ENGINE_NO = #{record.engineNo,jdbcType=VARCHAR},
+      REGISTER_DATE = #{record.registerDate,jdbcType=VARCHAR},
+      ISSUE_DATE = #{record.issueDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecord">
+    update t_ocr_vehicle_license_record
+    <set>
+      <if test="transNo != null">
+        TRANS_NO = #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNo != null">
+        PLATE_NO = #{plateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null">
+        VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        OWNER = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="useCharacter != null">
+        USE_CHARACTER = #{useCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        MODEL = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null">
+        VIN = #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="engineNo != null">
+        ENGINE_NO = #{engineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null">
+        REGISTER_DATE = #{registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="issueDate != null">
+        ISSUE_DATE = #{issueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TOcrVehicleLicenseRecord">
+    update t_ocr_vehicle_license_record
+    set TRANS_NO = #{transNo,jdbcType=VARCHAR},
+      PLATE_NO = #{plateNo,jdbcType=VARCHAR},
+      VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR},
+      OWNER = #{owner,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      USE_CHARACTER = #{useCharacter,jdbcType=VARCHAR},
+      MODEL = #{model,jdbcType=VARCHAR},
+      VIN = #{vin,jdbcType=VARCHAR},
+      ENGINE_NO = #{engineNo,jdbcType=VARCHAR},
+      REGISTER_DATE = #{registerDate,jdbcType=VARCHAR},
+      ISSUE_DATE = #{issueDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

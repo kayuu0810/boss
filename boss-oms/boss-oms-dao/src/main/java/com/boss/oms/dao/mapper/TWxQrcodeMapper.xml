@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TWxQrcodeMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TWxQrcode">
+    <id column="SCENE_ID" jdbcType="INTEGER" property="sceneId" />
+    <id column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+    <result column="MEDIA_ID" jdbcType="VARCHAR" property="mediaId" />
+    <result column="EXPIRESIN_TIME" jdbcType="TIMESTAMP" property="expiresinTime" />
+    <result column="REQ_COUNT" jdbcType="INTEGER" property="reqCount" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="QRCODE_TYPE" jdbcType="CHAR" property="qrcodeType" />
+    <result column="POSTER_TYPE" jdbcType="CHAR" property="posterType" />
+    <result column="QRCODE_URL" jdbcType="VARCHAR" property="qrcodeUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCENE_ID, OPEN_ID, MEDIA_ID, EXPIRESIN_TIME, REQ_COUNT, CREATE_TIME, UPDATE_TIME, 
+    QRCODE_TYPE, POSTER_TYPE, QRCODE_URL
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TWxQrcodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_wx_qrcode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_wx_qrcode
+    where SCENE_ID = #{sceneId,jdbcType=INTEGER}
+      and OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from t_wx_qrcode
+    where SCENE_ID = #{sceneId,jdbcType=INTEGER}
+      and OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TWxQrcodeExample">
+    delete from t_wx_qrcode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TWxQrcode">
+    insert into t_wx_qrcode (SCENE_ID, OPEN_ID, MEDIA_ID, 
+      EXPIRESIN_TIME, REQ_COUNT, CREATE_TIME, 
+      UPDATE_TIME, QRCODE_TYPE, POSTER_TYPE, 
+      QRCODE_URL)
+    values (#{sceneId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{mediaId,jdbcType=VARCHAR}, 
+      #{expiresinTime,jdbcType=TIMESTAMP}, #{reqCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{qrcodeType,jdbcType=CHAR}, #{posterType,jdbcType=CHAR}, 
+      #{qrcodeUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TWxQrcode">
+    insert into t_wx_qrcode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sceneId != null">
+        SCENE_ID,
+      </if>
+      <if test="openId != null">
+        OPEN_ID,
+      </if>
+      <if test="mediaId != null">
+        MEDIA_ID,
+      </if>
+      <if test="expiresinTime != null">
+        EXPIRESIN_TIME,
+      </if>
+      <if test="reqCount != null">
+        REQ_COUNT,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="qrcodeType != null">
+        QRCODE_TYPE,
+      </if>
+      <if test="posterType != null">
+        POSTER_TYPE,
+      </if>
+      <if test="qrcodeUrl != null">
+        QRCODE_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sceneId != null">
+        #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null">
+        #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresinTime != null">
+        #{expiresinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqCount != null">
+        #{reqCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrcodeType != null">
+        #{qrcodeType,jdbcType=CHAR},
+      </if>
+      <if test="posterType != null">
+        #{posterType,jdbcType=CHAR},
+      </if>
+      <if test="qrcodeUrl != null">
+        #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TWxQrcodeExample" resultType="java.lang.Long">
+    select count(*) from t_wx_qrcode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_wx_qrcode
+    <set>
+      <if test="record.sceneId != null">
+        SCENE_ID = #{record.sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null">
+        OPEN_ID = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaId != null">
+        MEDIA_ID = #{record.mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expiresinTime != null">
+        EXPIRESIN_TIME = #{record.expiresinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reqCount != null">
+        REQ_COUNT = #{record.reqCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.qrcodeType != null">
+        QRCODE_TYPE = #{record.qrcodeType,jdbcType=CHAR},
+      </if>
+      <if test="record.posterType != null">
+        POSTER_TYPE = #{record.posterType,jdbcType=CHAR},
+      </if>
+      <if test="record.qrcodeUrl != null">
+        QRCODE_URL = #{record.qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_wx_qrcode
+    set SCENE_ID = #{record.sceneId,jdbcType=INTEGER},
+      OPEN_ID = #{record.openId,jdbcType=VARCHAR},
+      MEDIA_ID = #{record.mediaId,jdbcType=VARCHAR},
+      EXPIRESIN_TIME = #{record.expiresinTime,jdbcType=TIMESTAMP},
+      REQ_COUNT = #{record.reqCount,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      QRCODE_TYPE = #{record.qrcodeType,jdbcType=CHAR},
+      POSTER_TYPE = #{record.posterType,jdbcType=CHAR},
+      QRCODE_URL = #{record.qrcodeUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TWxQrcode">
+    update t_wx_qrcode
+    <set>
+      <if test="mediaId != null">
+        MEDIA_ID = #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresinTime != null">
+        EXPIRESIN_TIME = #{expiresinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqCount != null">
+        REQ_COUNT = #{reqCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrcodeType != null">
+        QRCODE_TYPE = #{qrcodeType,jdbcType=CHAR},
+      </if>
+      <if test="posterType != null">
+        POSTER_TYPE = #{posterType,jdbcType=CHAR},
+      </if>
+      <if test="qrcodeUrl != null">
+        QRCODE_URL = #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SCENE_ID = #{sceneId,jdbcType=INTEGER}
+      and OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TWxQrcode">
+    update t_wx_qrcode
+    set MEDIA_ID = #{mediaId,jdbcType=VARCHAR},
+      EXPIRESIN_TIME = #{expiresinTime,jdbcType=TIMESTAMP},
+      REQ_COUNT = #{reqCount,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      QRCODE_TYPE = #{qrcodeType,jdbcType=CHAR},
+      POSTER_TYPE = #{posterType,jdbcType=CHAR},
+      QRCODE_URL = #{qrcodeUrl,jdbcType=VARCHAR}
+    where SCENE_ID = #{sceneId,jdbcType=INTEGER}
+      and OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

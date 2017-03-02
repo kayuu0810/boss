@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Built-By: Kayuu-LOCAL-PC
-Build-Jdk: 1.7.0_72
-Created-By: Apache Maven 3.3.9
 Archiver-Version: Plexus Archiver
+Built-By: Kayuu
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_121
 
