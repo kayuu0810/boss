@@ -4,7 +4,7 @@ import com.boss.upms.dao.model.UpmsPermission;
 import com.boss.upms.dao.model.UpmsSystem;
 import com.boss.upms.dao.model.UpmsSystemExample;
 import com.boss.upms.dao.model.UpmsUser;
-import com.zheng.common.base.BaseController;
+import com.boss.common.base.BaseController;
 import com.boss.upms.rpc.api.UpmsApiService;
 import com.boss.upms.rpc.api.UpmsSystemService;
 import io.swagger.annotations.Api;
@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 后台controller
- * Created by ZhangShuzheng on 2017/01/19.
+ * Created by Kayuu on 2017/01/19.
  */
 @Controller
 @RequestMapping("/manage")

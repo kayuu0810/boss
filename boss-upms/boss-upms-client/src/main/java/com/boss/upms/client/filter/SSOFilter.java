@@ -1,8 +1,8 @@
 package com.boss.upms.client.filter;
 
 import com.boss.upms.client.filter.util.RequestParameterUtil;
-import com.zheng.common.util.CookieUtil;
-import com.zheng.common.util.RedisUtil;
+import com.boss.common.util.CookieUtil;
+import com.boss.common.util.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,16 +27,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by shuzheng on 2016/12/10.
+ * Created by Kayuu on 2016/12/10.
  */
 public class SSOFilter implements Filter {
 
     private final static Logger _log = LoggerFactory.getLogger(SSOFilter.class);
 
     // 局部会话key
-    private final static String ZHENG_UPMS_CLIENT_SESSION_ID = "zheng-upms-client-session-id";
+    private final static String BOSS_UPMS_CLIENT_SESSION_ID = "boss-upms-client-session-id";
     // 单点同一个token所有局部会话key
-    private final static String ZHENG_UPMS_CLIENT_SESSION_IDS = "zheng-upms-client-session-ids";
+    private final static String BOSS_UPMS_CLIENT_SESSION_IDS = "boss-upms-client-session-ids";
     // 局部会话过期时间
     private final static int TIME_OUT = 30 * 60;
     private String SYSTEM_NAME = "system_name";
@@ -62,14 +62,14 @@ public class SSOFilter implements Filter {
         }
 
         // 分配子系统登录sessionId，首次获取后缓存到cookie，防止session丢失
-        String clientSessionId = CookieUtil.getCookie(request, ZHENG_UPMS_CLIENT_SESSION_ID);
+        String clientSessionId = CookieUtil.getCookie(request, BOSS_UPMS_CLIENT_SESSION_ID);
         if (StringUtils.isBlank(clientSessionId)) {
             clientSessionId = request.getSession().getId();
-            CookieUtil.setCookie(response, ZHENG_UPMS_CLIENT_SESSION_ID, clientSessionId);
+            CookieUtil.setCookie(response, BOSS_UPMS_CLIENT_SESSION_ID, clientSessionId);
         }
 
         // 判断局部会话是否登录
-        String cacheToken = RedisUtil.get(ZHENG_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId);
+        String cacheToken = RedisUtil.get(BOSS_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId);
         if (null != clientSessionId && !StringUtils.isBlank(cacheToken)) {
             // 移除url中的token参数
             if (null != request.getParameter("token")) {
@@ -79,9 +79,9 @@ public class SSOFilter implements Filter {
                 filterChain.doFilter(request, response);
             }
             // 更新token有效期
-            RedisUtil.set(ZHENG_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId, cacheToken, TIME_OUT);
+            RedisUtil.set(BOSS_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId, cacheToken, TIME_OUT);
             Jedis jedis = RedisUtil.getJedis();
-            jedis.expire(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + cacheToken, TIME_OUT);
+            jedis.expire(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + cacheToken, TIME_OUT);
             jedis.close();
             return;
         }
@@ -108,13 +108,13 @@ public class SSOFilter implements Filter {
                         String result = EntityUtils.toString(httpEntity);
                         if (result.equals("success")) {
                             // token校验正确，创建局部会话
-                            RedisUtil.set(ZHENG_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId, token, TIME_OUT);
+                            RedisUtil.set(BOSS_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId, token, TIME_OUT);
                             // 保存token对应的局部会话sessionId，方便退出操作
                             Jedis jedis = RedisUtil.getJedis();
-                            jedis.sadd(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + token, clientSessionId);
-                            jedis.expire(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + token, TIME_OUT);
+                            jedis.sadd(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + token, clientSessionId);
+                            jedis.expire(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + token, TIME_OUT);
                             jedis.close();
-                            _log.debug("当前token={}，对应的注册系统个数：{}个", token, RedisUtil.getJedis().scard(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + token));
+                            _log.debug("当前token={}，对应的注册系统个数：{}个", token, RedisUtil.getJedis().scard(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + token));
                             // 移除url中的token参数
                             String backUrl = RequestParameterUtil.getParameterWithOutToken(request);
                             // 返回请求资源

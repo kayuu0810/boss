@@ -1,6 +1,6 @@
 package com.boss.upms.server.controller.manage;
 
-import com.zheng.common.base.BaseController;
+import com.boss.common.base.BaseController;
 import com.boss.upms.common.constant.UpmsResult;
 import com.boss.upms.common.constant.UpmsResultConstant;
 import com.boss.upms.server.shiro.UpmsSessionDao;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 会话管理controller
- * Created by shuzheng on 2017/2/28.
+ * Created by Kayuu on 2017/2/28.
  */
 @Controller
 @Api(value = "会话管理", description = "会话管理")

@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <description>zheng-upms</description>
+    <description>boss-upms</description>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -81,7 +81,7 @@
         <!-- 设置Cookie的过期时间，秒为单位，默认-1表示关闭浏览器时过期Cookie -->
         <property name="maxAge" value="-1"/>
         <!-- Cookie名称 -->
-        <property name="name" value="zheng-upms-server-session-id"/>
+        <property name="name" value="boss-upms-server-session-id"/>
     </bean>
 
     <!-- 会话监听器 -->

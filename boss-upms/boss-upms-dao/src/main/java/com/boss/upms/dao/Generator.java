@@ -1,11 +1,11 @@
 package com.boss.upms.dao;
 
-import com.zheng.common.util.MybatisGeneratorUtil;
-import com.zheng.common.util.PropertiesFileUtil;
+import com.boss.common.util.MybatisGeneratorUtil;
+import com.boss.common.util.PropertiesFileUtil;
 
 /**
  * 代码生成类
- * Created by ZhangShuzheng on 2017/1/10.
+ * Created by Kayuu on 2017/1/10.
  */
 public class Generator {
 

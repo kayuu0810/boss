@@ -3,8 +3,8 @@ package com.boss.upms.server.controller.manage;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.zheng.common.base.BaseController;
-import com.zheng.common.validator.LengthValidator;
+import com.boss.common.base.BaseController;
+import com.boss.common.validator.LengthValidator;
 import com.boss.upms.common.constant.UpmsResult;
 import com.boss.upms.common.constant.UpmsResultConstant;
 import com.boss.upms.dao.model.UpmsOrganization;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * 组织controller
- * Created by shuzheng on 2017/2/6.
+ * Created by Kayuu on 2017/2/6.
  */
 @Controller
 @Api(value = "组织管理", description = "组织管理")

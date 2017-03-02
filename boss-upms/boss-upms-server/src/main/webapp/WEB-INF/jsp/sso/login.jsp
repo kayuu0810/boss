@@ -14,12 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>权限管理系统</title>
 
-    <link href="${basePath}/resources/zheng-ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/zheng-ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/zheng-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/zheng-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/zheng-ui/plugins/checkbix/css/checkbix.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/zheng-ui/css/login.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/boss-ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/boss-ui/plugins/checkbix/css/checkbix.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/boss-ui/css/login.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="login-window">
@@ -42,12 +42,12 @@
     </div>
     <a id="login-bt" href="javascript:;" class="waves-effect waves-button waves-float"><i class="zmdi zmdi-arrow-forward"></i></a>
 </div>
-<script src="${basePath}/resources/zheng-ui/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/waves-0.7.5/waves.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/checkbix/js/checkbix.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/jquery.1.12.4.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/checkbix/js/checkbix.min.js"></script>
 
-<script src="${basePath}/resources/zheng-ui/js/login.js"></script>
+<script src="${basePath}/resources/boss-ui/js/login.js"></script>
 <script>
     Checkbix.init();
     $(function() {

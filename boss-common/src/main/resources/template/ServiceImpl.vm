@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
 * ${modelname}service实现
-* Created by shuzheng on ${ctime}.
+* Created by Kayuu on ${ctime}.
 */
 @Service
 @Transactional

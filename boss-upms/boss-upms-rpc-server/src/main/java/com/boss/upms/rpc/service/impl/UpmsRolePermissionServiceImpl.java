@@ -1,8 +1,8 @@
 package com.boss.upms.rpc.service.impl;
 
 import com.boss.upms.rpc.api.UpmsRolePermissionService;
-import com.zheng.common.annotation.BaseService;
-import com.zheng.common.base.BaseServiceImpl;
+import com.boss.common.annotation.BaseService;
+import com.boss.common.base.BaseServiceImpl;
 import com.boss.upms.dao.mapper.UpmsRolePermissionMapper;
 import com.boss.upms.dao.model.UpmsRolePermission;
 import com.boss.upms.dao.model.UpmsRolePermissionExample;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 角色权限service实现
- * Created by shuzheng on 2017/2/26.
+ * Created by Kayuu on 2017/2/26.
  */
 @Service
 @Transactional

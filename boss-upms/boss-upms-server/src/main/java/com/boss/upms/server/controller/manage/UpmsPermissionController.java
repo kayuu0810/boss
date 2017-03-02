@@ -4,8 +4,8 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.boss.upms.dao.model.*;
-import com.zheng.common.base.BaseController;
-import com.zheng.common.validator.LengthValidator;
+import com.boss.common.base.BaseController;
+import com.boss.common.validator.LengthValidator;
 import com.boss.upms.common.constant.UpmsResult;
 import com.boss.upms.common.constant.UpmsResultConstant;
 import com.boss.upms.rpc.api.UpmsApiService;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * 权限controller
- * Created by shuzheng on 2017/2/6.
+ * Created by Kayuu on 2017/2/6.
  */
 @Controller
 @Api(value = "权限管理", description = "权限管理")

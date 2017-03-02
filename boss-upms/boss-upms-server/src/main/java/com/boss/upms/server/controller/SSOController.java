@@ -1,7 +1,7 @@
 package com.boss.upms.server.controller;
 
-import com.zheng.common.base.BaseController;
-import com.zheng.common.util.RedisUtil;
+import com.boss.common.base.BaseController;
+import com.boss.common.util.RedisUtil;
 import com.boss.upms.common.constant.UpmsResult;
 import com.boss.upms.common.constant.UpmsResultConstant;
 import com.boss.upms.dao.model.UpmsSystemExample;
@@ -37,7 +37,7 @@ import java.util.UUID;
 
 /**
  * 单点登录管理
- * Created by shuzheng on 2016/12/10.
+ * Created by Kayuu on 2016/12/10.
  */
 @Controller
 @RequestMapping("/sso")
@@ -46,13 +46,13 @@ public class SSOController extends BaseController {
 
 	private final static Logger _log = LoggerFactory.getLogger(SSOController.class);
 	// 全局会话key
-	private final static String ZHENG_UPMS_SERVER_SESSION_ID = "zheng-upms-server-session-id";
+	private final static String BOSS_UPMS_SERVER_SESSION_ID = "boss-upms-server-session-id";
 	// token key
-	private final static String ZHENG_UPMS_SERVER_TOKEN = "zheng-upms-server-token";
+	private final static String BOSS_UPMS_SERVER_TOKEN = "boss-upms-server-token";
 	// 局部会话key
-	private final static String ZHENG_UPMS_CLIENT_SESSION_ID = "zheng-upms-client-session-id";
+	private final static String BOSS_UPMS_CLIENT_SESSION_ID = "boss-upms-client-session-id";
 	// 单点同一个token所有局部会话key
-	private final static String ZHENG_UPMS_CLIENT_SESSION_IDS = "zheng-upms-client-session-ids";
+	private final static String BOSS_UPMS_CLIENT_SESSION_IDS = "boss-upms-client-session-ids";
 
 	@Autowired
 	UpmsSystemService upmsSystemService;
@@ -86,7 +86,7 @@ public class SSOController extends BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		String serverSessionId = subject.getSession().getId().toString();
 		// 有回跳路径的访问判断是否已登录，如果已登录，则回跳
-		String token = RedisUtil.get(ZHENG_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
+		String token = RedisUtil.get(BOSS_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
 		// token校验值
 		if (!StringUtils.isBlank(token)) {
 			// 回跳
@@ -145,9 +145,9 @@ public class SSOController extends BaseController {
 		// 默认验证帐号密码正确，创建token
 		String token = UUID.randomUUID().toString();
 		// 全局会话sessionId
-		RedisUtil.set(ZHENG_UPMS_SERVER_SESSION_ID + "_" + serverSessionId, token, (int) subject.getSession().getTimeout() / 1000);
+		RedisUtil.set(BOSS_UPMS_SERVER_SESSION_ID + "_" + serverSessionId, token, (int) subject.getSession().getTimeout() / 1000);
 		// token校验值
-		RedisUtil.set(ZHENG_UPMS_SERVER_TOKEN + "_" + token, token, (int) subject.getSession().getTimeout() / 1000);
+		RedisUtil.set(BOSS_UPMS_SERVER_TOKEN + "_" + token, token, (int) subject.getSession().getTimeout() / 1000);
 		// 回跳登录前地址
 		if (StringUtils.isBlank(backurl)) {
 			SavedRequest savedRequest = WebUtils.getSavedRequest(request);
@@ -170,7 +170,7 @@ public class SSOController extends BaseController {
 	@ResponseBody
 	public String token(HttpServletRequest request) {
 		String tokenParam = request.getParameter("token");
-		String token = RedisUtil.get(ZHENG_UPMS_SERVER_TOKEN + "_" + tokenParam);
+		String token = RedisUtil.get(BOSS_UPMS_SERVER_TOKEN + "_" + tokenParam);
 		if (StringUtils.isBlank(tokenParam) || !tokenParam.equals(token)) {
 			return "failed";
 		}
@@ -186,19 +186,19 @@ public class SSOController extends BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		String serverSessionId = subject.getSession().getId().toString();
 		// 当前全局会话token
-		String token = RedisUtil.get(ZHENG_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
+		String token = RedisUtil.get(BOSS_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
 		// 清除全局会话
-		RedisUtil.remove(ZHENG_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
+		RedisUtil.remove(BOSS_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
 		// 清除token校验值
-		RedisUtil.remove(ZHENG_UPMS_SERVER_TOKEN + "_" + token);
+		RedisUtil.remove(BOSS_UPMS_SERVER_TOKEN + "_" + token);
 		// 清除所有局部会话
 		Jedis jedis = RedisUtil.getJedis();
-		Set<String> clientSessionIds = jedis.smembers(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + token);
+		Set<String> clientSessionIds = jedis.smembers(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + token);
 		for (String clientSessionId : clientSessionIds) {
-			jedis.del(ZHENG_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId);
-			jedis.srem(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + token, clientSessionId);
+			jedis.del(BOSS_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId);
+			jedis.srem(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + token, clientSessionId);
 		}
-		_log.debug("当前token={}，对应的注册系统个数：{}个", token, jedis.scard(ZHENG_UPMS_CLIENT_SESSION_IDS + "_" + token));
+		_log.debug("当前token={}，对应的注册系统个数：{}个", token, jedis.scard(BOSS_UPMS_CLIENT_SESSION_IDS + "_" + token));
         jedis.close();
 		// 跳回原地址
 		String redirectUrl = request.getHeader("Referer");

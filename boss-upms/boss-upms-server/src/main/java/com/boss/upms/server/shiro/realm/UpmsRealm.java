@@ -1,6 +1,6 @@
 package com.boss.upms.server.shiro.realm;
 
-import com.zheng.common.util.MD5Util;
+import com.boss.common.util.MD5Util;
 import com.boss.upms.dao.model.UpmsPermission;
 import com.boss.upms.dao.model.UpmsRole;
 import com.boss.upms.dao.model.UpmsUser;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by shuzheng on 2017/1/20.
+ * Created by Kayuu on 2017/1/20.
  */
 public class UpmsRealm extends AuthorizingRealm {
 

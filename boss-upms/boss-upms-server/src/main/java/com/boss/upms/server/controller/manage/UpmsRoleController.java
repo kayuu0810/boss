@@ -5,8 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
-import com.zheng.common.base.BaseController;
-import com.zheng.common.validator.LengthValidator;
+import com.boss.common.base.BaseController;
+import com.boss.common.validator.LengthValidator;
 import com.boss.upms.common.constant.UpmsResult;
 import com.boss.upms.common.constant.UpmsResultConstant;
 import com.boss.upms.dao.model.UpmsRole;
@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * 角色controller
- * Created by shuzheng on 2017/2/6.
+ * Created by Kayuu on 2017/2/6.
  */
 @Controller
 @Api(value = "角色管理", description = "角色管理")

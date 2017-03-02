@@ -1,8 +1,8 @@
 package com.boss.upms.rpc.service.impl;
 
 import com.boss.upms.dao.model.UpmsUserOrganizationExample;
-import com.zheng.common.annotation.BaseService;
-import com.zheng.common.base.BaseServiceImpl;
+import com.boss.common.annotation.BaseService;
+import com.boss.common.base.BaseServiceImpl;
 import com.boss.upms.dao.mapper.UpmsUserOrganizationMapper;
 import com.boss.upms.dao.model.UpmsUserOrganization;
 import com.boss.upms.rpc.api.UpmsUserOrganizationService;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户组织service实现
- * Created by shuzheng on 2017/2/6.
+ * Created by Kayuu on 2017/2/6.
  */
 @Service
 @Transactional

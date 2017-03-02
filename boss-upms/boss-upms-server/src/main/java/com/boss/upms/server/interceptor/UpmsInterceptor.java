@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登录信息拦截器
- * Created by shuzheng on 2017/2/11.
+ * Created by Kayuu on 2017/2/11.
  */
 public class UpmsInterceptor extends HandlerInterceptorAdapter {
 

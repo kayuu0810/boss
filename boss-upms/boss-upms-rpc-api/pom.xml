@@ -28,7 +28,7 @@
     </dependencies>
 
     <build>
-        <finalName>zheng-upms-rpc-api</finalName>
+        <finalName>boss-upms-rpc-api</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>

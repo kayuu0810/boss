@@ -14,11 +14,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>权限管理系统</title>
 
-	<link href="${basePath}/resources/zheng-ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/zheng-ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/zheng-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/zheng-ui/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/zheng-ui/css/admin.css" rel="stylesheet"/>
+	<link href="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="${basePath}/resources/boss-ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+	<link href="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+	<link href="${basePath}/resources/boss-ui/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+	<link href="${basePath}/resources/boss-ui/css/admin.css" rel="stylesheet"/>
 </head>
 <body>
 <header id="header">
@@ -32,7 +32,7 @@
 		</li>
 		<li id="logo" class="hidden-xs">
 			<a href="${basePath}/manage/index">
-				<img src="${basePath}/resources/zheng-ui/images/logo.png"/>
+				<img src="${basePath}/resources/boss-ui/images/logo.png"/>
 			</a>
 			<span id="system_title">权限管理系统</span>
 		</li>
@@ -146,7 +146,7 @@
 				</c:if>
 			</c:forEach>
 			<li>
-				<div class="upms-version">&copy; ZHENG-UPMS V1.0.0</div>
+				<div class="upms-version">&copy; BOSS-UPMS V1.0.0</div>
 			</li>
 		</ul>
 		<!-- /菜单区 -->
@@ -169,7 +169,7 @@
 		<div class="content_main">
 			<div id="iframe_home" class="iframe cur">
 				<p><h4>通用用户权限管理系统</h4></p>
-				<p><b>演示地址</b>：<a href="http://www.zhangshuzheng.cn/zhengAdmin" target="_blank">http://www.zhangshuzheng.cn/zhengAdmin</a></p>
+				<p><b>演示地址</b>：<a href="http://www.Kayuu.cn/zhengAdmin" target="_blank">http://www.Kayuu.cn/zhengAdmin</a></p>
 				<p><b>系统简介</b>：本系统是基于RBAC授权和基于用户授权的细粒度权限控制通用平台，并提供单点登录、会话管理和日志管理。接入的系统可自由定义组织、角色、权限、资源等。</p><br/>
 				<p><h4>系统功能概述：</h4></p>
 				<p><b>系统组织管理</b>：系统和组织增加、删除、修改、查询功能。</p>
@@ -190,15 +190,15 @@
 </section>
 <footer id="footer"></footer>
 
-<script src="${basePath}/resources/zheng-ui/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/waves-0.7.5/waves.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/BootstrapMenu.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/device.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/js/admin.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/fullPage/jquery.fullPage.min.js"></script>
-<script src="${basePath}/resources/zheng-ui/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/jquery.1.12.4.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/BootstrapMenu.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/device.min.js"></script>
+<script src="${basePath}/resources/boss-ui/js/admin.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/fullPage/jquery.fullPage.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/fullPage/jquery.jdirk.min.js"></script>
 
 </body>
 </html>

@@ -24,9 +24,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.zheng</groupId>
-            <artifactId>zheng-common</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.enci</groupId>
+            <artifactId>boss-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <!-- servlet -->
@@ -39,7 +39,7 @@
     </dependencies>
 
     <build>
-        <finalName>zheng-upms-client</finalName>
+        <finalName>boss-upms-client</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>

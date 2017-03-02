@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
 * 降级实现${modelname}Service
-* Created by shuzheng on ${ctime}.
+* Created by Kayuu on ${ctime}.
 */
 @Service
 @Transactional
