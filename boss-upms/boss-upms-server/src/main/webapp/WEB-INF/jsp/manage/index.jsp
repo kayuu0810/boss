@@ -79,7 +79,7 @@
 							<a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
 						</li>
 						<li>
-							<a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
+							<a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:clearCache();"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
 						</li>
 						<li>
 							<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-face"></i> 隐私管理</a>
