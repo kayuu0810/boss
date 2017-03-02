@@ -21,11 +21,7 @@
 		<result column="groupid" jdbcType="INTEGER" property="groupid" />
 		<result column="account_originid" jdbcType="VARCHAR" property="accountOriginid" />
 	</resultMap>
-
-
-	<select id="selectWxUserList" resultMap="BaseResultMap">
-		select * from t_wx_user
-	</select>
+	<select id="selectWxUserList" resultMap="BaseResultMap">SELECT * FROM t_wx_user</select>
 	<!-- 缓存 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 	
