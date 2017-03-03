@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,7 +45,6 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsUserId
      * @return
      */
-    @Override
     public List<UpmsPermission> selectUpmsPermissionByUpmsUserId(Integer upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
@@ -57,11 +57,26 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     }
 
     /**
+     * 根据用户id和系统id 获取该系统菜单
+     * @param paramMap
+     * @return
+     */
+    public List<UpmsPermission> selectUpmsPermissionByUpmsUserIdAndSystemId(HashMap<String, Integer> paramMap) {
+        // 用户不存在或锁定状态
+        UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(paramMap.get("userId"));
+        if (null == upmsUser || 1 == upmsUser.getLocked()) {
+            _log.info("selectUpmsPermissionByUpmsUserId : upmsUserId={}", paramMap.get("userId"));
+            return null;
+        }
+        List<UpmsPermission> upmsPermissions = upmsApiMapper.selectUpmsPermissionByUpmsUserIdAndSystemId(paramMap);
+        return upmsPermissions;
+    }
+
+    /**
      * 根据用户id获取所属的角色
      * @param upmsUserId
      * @return
      */
-    @Override
     public List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
@@ -78,7 +93,6 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsRoleId
      * @return
      */
-    @Override
     public List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Integer upmsRoleId) {
         UpmsRolePermissionExample upmsRolePermissionExample = new UpmsRolePermissionExample();
         upmsRolePermissionExample.createCriteria()
@@ -92,7 +106,6 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsUserId
      * @return
      */
-    @Override
     public List<UpmsUserPermission> selectUpmsUserPermissionByUpmsUserId(Integer upmsUserId) {
         UpmsUserPermissionExample upmsUserPermissionExample = new UpmsUserPermissionExample();
         upmsUserPermissionExample.createCriteria()
@@ -106,7 +119,6 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsSystemExample
      * @return
      */
-    @Override
     public List<UpmsSystem> selectUpmsSystemByExample(UpmsSystemExample upmsSystemExample) {
         return upmsSystemMapper.selectByExample(upmsSystemExample);
     }
@@ -116,7 +128,6 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsOrganizationExample
      * @return
      */
-    @Override
     public List<UpmsOrganization> selectUpmsOrganizationByExample(UpmsOrganizationExample upmsOrganizationExample) {
         return upmsOrganizationMapper.selectByExample(upmsOrganizationExample);
     }

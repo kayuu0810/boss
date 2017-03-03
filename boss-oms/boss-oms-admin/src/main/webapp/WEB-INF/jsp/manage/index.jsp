@@ -12,13 +12,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>权限管理系统</title>
+    <title>企业管理系统</title>
 
     <link href="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/boss-ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/boss-ui/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/boss-ui/css/admin.css" rel="stylesheet"/>
+
 </head>
 <body>
 <header id="header">
@@ -63,11 +64,11 @@
                             请选择系统切换
                         </li>
                         <li class="divider hidden-xs"></li>
-                        <c:forEach var="upmsSystem" items="${upmsSystems}">
+                       <%-- <c:forEach var="upmsSystem" items="${upmsSystems}">
                             <li>
                                 <a class="waves-effect switch-systems" href="javascript:;" systemid="${upmsSystem.systemId}" systemtitle="${upmsSystem.title}"><i class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
                             </li>
-                        </c:forEach>
+                        </c:forEach>--%>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -79,7 +80,7 @@
                             <a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
                         </li>
                         <li>
-                            <a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:clearCache();"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
+                            <a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
                         </li>
                         <li>
                             <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-face"></i> 隐私管理</a>
@@ -127,26 +128,13 @@
         </div>
         <!-- /个人资料区 -->
         <!-- 菜单区 -->
-        <ul class="main-menu">
+        <ul class="main-menu menu-list">
             <li>
                 <a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i> 首页</a>
             </li>
-            <c:forEach var="upmsPermission" items="${upmsPermissions}" varStatus="status">
-                <c:if test="${upmsPermission.pid == 0}">
-                    <li class="sub-menu system_menus system_${upmsPermission.systemId} ${status.index}" <c:if test="${upmsPermission.systemId != 1}">style="display:none;"</c:if>>
-                        <a class="waves-effect" href="javascript:;"><i class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
-                        <ul>
-                            <c:forEach var="subUpmsPermission" items="${upmsPermissions}">
-                                <c:if test="${subUpmsPermission.pid == upmsPermission.permissionId}">
-                                    <li><a class="waves-effect" href="javascript:Tab.addTab('${subUpmsPermission.name}', '${basePath}${subUpmsPermission.uri}');">${subUpmsPermission.name}</a></li>
-                                </c:if>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                </c:if>
-            </c:forEach>
+
             <li>
-                <div class="upms-version">&copy; BOSS-UPMS V1.0.0</div>
+                <div class="upms-version">&copy; ZHENG-UPMS V1.0.0</div>
             </li>
         </ul>
         <!-- /菜单区 -->
@@ -169,7 +157,7 @@
         <div class="content_main">
             <div id="iframe_home" class="iframe cur">
                 <p><h4>通用用户权限管理系统</h4></p>
-                <p><b>演示地址</b>：<a href="http://www.Kayuu.cn/zhengAdmin" target="_blank">http://www.Kayuu.cn/zhengAdmin</a></p>
+                <p><b>演示地址</b>：<a href="http://www.zhangshuzheng.cn/zhengAdmin" target="_blank">http://www.zhangshuzheng.cn/zhengAdmin</a></p>
                 <p><b>系统简介</b>：本系统是基于RBAC授权和基于用户授权的细粒度权限控制通用平台，并提供单点登录、会话管理和日志管理。接入的系统可自由定义组织、角色、权限、资源等。</p><br/>
                 <p><h4>系统功能概述：</h4></p>
                 <p><b>系统组织管理</b>：系统和组织增加、删除、修改、查询功能。</p>
@@ -188,8 +176,33 @@
         </div>
     </section>
 </section>
+<input id="sso_server_url" type="hidden">
 <footer id="footer"></footer>
-
+<script id="menuListScriptTemplate" type="text/html">
+    {{each data.upmsPermissions as upmsPermission}}
+            {{if upmsPermission.pid == 0 }}
+            <li class="sub-menu system_menus system_{{upmsPermission.systemId}} {{upmsPermission.index}}"
+                {{if upmsPermission.systemId != 1 }} style="display:none;" {{/if}}
+                <a class="waves-effect" href="javascript:;"><i class="{{upmsPermission.icon}}"></i> {{upmsPermission.name}}</a>
+                <ul>
+                    {{each data.upmsPermissions as subUpmsPermission}}
+                    {{if subUpmsPermission.pid == upmsPermission.permissionId }}
+                            <li><a class="waves-effect" href="javascript:Tab.addTab('{{subUpmsPermission.name}}', '{{basePath}}{{subUpmsPermission.uri}}');">{{subUpmsPermission.name}}</a></li>
+                    {{/if}}
+                    {{/each}}
+                </ul>
+            </li>
+    {{/if}}
+    {{/each}}
+</script>
+<!--系统遍历列表-->
+<script id="upmsSysyemListTemplate" type="text/html">
+    {{each data.upmsSystems as upmsSystem}}
+    <li>
+        <a class="waves-effect switch-systems" href="javascript:;" systemid="{{upmsSystem.systemId}}" systemtitle="{{upmsSystem.title}}"><i class="{{upmsSystem.icon}}"></i> {{upmsSystem.title}}</a>
+    </li>
+    {{/each}}
+</script>
 <script src="${basePath}/resources/boss-ui/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
 <script src="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.js"></script>
@@ -199,6 +212,24 @@
 <script src="${basePath}/resources/boss-ui/js/admin.js"></script>
 <script src="${basePath}/resources/boss-ui/plugins/fullPage/jquery.fullPage.min.js"></script>
 <script src="${basePath}/resources/boss-ui/plugins/fullPage/jquery.jdirk.min.js"></script>
-
+<script src="${basePath}/resources/boss-ui/plugins/template/template.js"></script>
+<script>
+    $("#sso_server_url").val($.cookie('sso_server_url'));
+    $.ajax({
+        url : $("#sso_server_url").val() + "/manage/api/index",
+        dataType: "jsonp",
+        data:{systemId:2},
+        jsonpCallback: "callback"
+    });
+    function callback(msg) {
+        if(msg.code == 1){
+            //系统遍历
+            var umpsSystemTemplateHtml = template('upmsSysyemListTemplate', {data:msg.data});
+            var menuListTemplateHtml = template('menuListScriptTemplate', {data:msg.data});
+            $(".divider").after(umpsSystemTemplateHtml);
+            $(".menu-list > li:eq(1)").after(menuListTemplateHtml);
+        }
+    }
+</script>
 </body>
 </html>

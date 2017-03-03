@@ -13,5 +13,4 @@
 
     <!-- 用户 -->
     <dubbo:reference id="userService" interface="com.boss.oms.rpc.api.WxUserService" mock="true"/>
-
 </beans>

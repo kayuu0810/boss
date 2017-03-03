@@ -4,6 +4,7 @@ package com.boss.upms.dao.mapper;
 import com.boss.upms.dao.model.UpmsPermission;
 import com.boss.upms.dao.model.UpmsRole;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,5 +18,7 @@ public interface UpmsApiMapper {
 
 	// 根据用户id获取所属的角色
 	List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId);
-	
+
+    List<UpmsPermission> selectUpmsPermissionByUpmsUserIdAndSystemId(HashMap<String, Integer> paramMap);
+
 }
