@@ -74,6 +74,7 @@ public class MenuManageApiController extends BaseController{
         paramMaps.put("userId",upmsUser.getUserId());
         List<UpmsPermission> upmsPermissions = upmsApiService.selectUpmsPermissionByUpmsUserIdAndSystemId(paramMaps);
         reslutMap.put("upmsPermissions", upmsPermissions);
+        reslutMap.put("upmsUser",upmsUser);
         UpmsResult upmsResult = new UpmsResult(UpmsResultConstant.SUCCESS, reslutMap);
         if(callback !=null && callback.equals("callback")){
             return callback +"("+ JsonUtil.toJSONString(upmsResult) +")";

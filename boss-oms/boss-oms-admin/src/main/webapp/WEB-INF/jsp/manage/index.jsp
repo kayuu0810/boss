@@ -104,10 +104,11 @@
         <div class="s-profile">
             <a class="waves-effect waves-light" href="javascript:;">
                 <div class="sp-pic">
-                    <img src="${basePath}${upmsUser.avatar}"/>
+                    <!--头像URL的值-->
+                    <img src=""/>
                 </div>
                 <div class="sp-info">
-                    ${upmsUser.realname}，您好！
+
                     <i class="zmdi zmdi-caret-down"></i>
                 </div>
             </a>
@@ -179,20 +180,19 @@
 <input id="sso_server_url" type="hidden">
 <footer id="footer"></footer>
 <script id="menuListScriptTemplate" type="text/html">
-    {{each data.upmsPermissions as upmsPermission}}
-            {{if upmsPermission.pid == 0 }}
-            <li class="sub-menu system_menus system_{{upmsPermission.systemId}} {{upmsPermission.index}}"
-                {{if upmsPermission.systemId != 1 }} style="display:none;" {{/if}}
+    {{each data.upmsPermissions as upmsPermission index}}
+    {{if upmsPermission.pid == 0 }}
+            <li class="sub-menu system_menus system_{{upmsPermission.systemId}} {{index}}">
                 <a class="waves-effect" href="javascript:;"><i class="{{upmsPermission.icon}}"></i> {{upmsPermission.name}}</a>
                 <ul>
                     {{each data.upmsPermissions as subUpmsPermission}}
                     {{if subUpmsPermission.pid == upmsPermission.permissionId }}
-                            <li><a class="waves-effect" href="javascript:Tab.addTab('{{subUpmsPermission.name}}', '{{basePath}}{{subUpmsPermission.uri}}');">{{subUpmsPermission.name}}</a></li>
+                            <li><a class="waves-effect" href="javascript:Tab.addTab('{{subUpmsPermission.name}}', '${basePath}{{subUpmsPermission.uri}}');">{{subUpmsPermission.name}}</a></li>
                     {{/if}}
                     {{/each}}
                 </ul>
             </li>
-    {{/if}}
+       {{/if}}
     {{/each}}
 </script>
 <!--系统遍历列表-->
@@ -223,11 +223,12 @@
     });
     function callback(msg) {
         if(msg.code == 1){
-            //系统遍历
             var umpsSystemTemplateHtml = template('upmsSysyemListTemplate', {data:msg.data});
             var menuListTemplateHtml = template('menuListScriptTemplate', {data:msg.data});
             $(".divider").after(umpsSystemTemplateHtml);
-            $(".menu-list > li:eq(1)").after(menuListTemplateHtml);
+            $(".menu-list > li:eq(0)").after(menuListTemplateHtml);
+            $(".sp-pic > img").attr("src",msg.data.upmsUser.avatar);
+            $(".sp-info > i:eq(0)").before(msg.data.upmsUser.realname+"，您好！");
         }
     }
 </script>

@@ -133,7 +133,8 @@
 			</li>
 			<c:forEach var="upmsPermission" items="${upmsPermissions}" varStatus="status">
 				<c:if test="${upmsPermission.pid == 0}">
-				<li class="sub-menu system_menus system_${upmsPermission.systemId} ${status.index}" <c:if test="${upmsPermission.systemId != 1}">style="display:none;"</c:if>>
+				<li class="sub-menu system_menus system_${upmsPermission.systemId} ${status.index}"
+					<c:if test="${upmsPermission.systemId != 1}">style="display:none;"</c:if>>
 					<a class="waves-effect" href="javascript:;"><i class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
 					<ul>
 						<c:forEach var="subUpmsPermission" items="${upmsPermissions}">
