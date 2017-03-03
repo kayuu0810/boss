@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TVehicleDetailInfoMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TVehicleDetailInfo">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="LICENSE_NO" jdbcType="VARCHAR" property="licenseNo" />
+    <result column="CITY_CODE" jdbcType="VARCHAR" property="cityCode" />
+    <result column="ENGINE_NO" jdbcType="VARCHAR" property="engineNo" />
+    <result column="FRAME_NO" jdbcType="VARCHAR" property="frameNo" />
+    <result column="FIRST_REGISTER_DATE" jdbcType="DATE" property="firstRegisterDate" />
+    <result column="OWNER_ID" jdbcType="BIGINT" property="ownerId" />
+    <result column="VEHICLE_MODEL_NAME" jdbcType="VARCHAR" property="vehicleModelName" />
+    <result column="VEHICLE_MODEL_ID" jdbcType="BIGINT" property="vehicleModelId" />
+    <result column="PURCHASE_DATE" jdbcType="DATE" property="purchaseDate" />
+    <result column="IS_NEW_FLAG" jdbcType="VARCHAR" property="isNewFlag" />
+    <result column="IS_TRANS_FLAG" jdbcType="VARCHAR" property="isTransFlag" />
+    <result column="TRANS_DATE" jdbcType="DATE" property="transDate" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="LAST_UPDATE_USER" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+    <result column="IS_LOAN_FLAG" jdbcType="VARCHAR" property="isLoanFlag" />
+    <result column="FUEL_TYPE" jdbcType="VARCHAR" property="fuelType" />
+    <result column="DRIVING_LICENSE_ADDR" jdbcType="VARCHAR" property="drivingLicenseAddr" />
+    <result column="VEHICLE_VOUCHER_TYPE" jdbcType="VARCHAR" property="vehicleVoucherType" />
+    <result column="VEHICLE_VOUCHER_NO" jdbcType="VARCHAR" property="vehicleVoucherNo" />
+    <result column="VEHICLE_VOUCHER_DATE" jdbcType="DATE" property="vehicleVoucherDate" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, LICENSE_NO, CITY_CODE, ENGINE_NO, FRAME_NO, FIRST_REGISTER_DATE, OWNER_ID, VEHICLE_MODEL_NAME, 
+    VEHICLE_MODEL_ID, PURCHASE_DATE, IS_NEW_FLAG, IS_TRANS_FLAG, TRANS_DATE, STATUS, 
+    CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE, IS_LOAN_FLAG, FUEL_TYPE, 
+    DRIVING_LICENSE_ADDR, VEHICLE_VOUCHER_TYPE, VEHICLE_VOUCHER_NO, VEHICLE_VOUCHER_DATE, 
+    ORG_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TVehicleDetailInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_vehicle_detail_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vehicle_detail_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_vehicle_detail_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TVehicleDetailInfoExample">
+    delete from t_vehicle_detail_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TVehicleDetailInfo">
+    insert into t_vehicle_detail_info (ID, LICENSE_NO, CITY_CODE, 
+      ENGINE_NO, FRAME_NO, FIRST_REGISTER_DATE, 
+      OWNER_ID, VEHICLE_MODEL_NAME, VEHICLE_MODEL_ID, 
+      PURCHASE_DATE, IS_NEW_FLAG, IS_TRANS_FLAG, 
+      TRANS_DATE, STATUS, CREATE_USER, 
+      CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE, 
+      IS_LOAN_FLAG, FUEL_TYPE, DRIVING_LICENSE_ADDR, 
+      VEHICLE_VOUCHER_TYPE, VEHICLE_VOUCHER_NO, VEHICLE_VOUCHER_DATE, 
+      ORG_NAME)
+    values (#{id,jdbcType=BIGINT}, #{licenseNo,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{engineNo,jdbcType=VARCHAR}, #{frameNo,jdbcType=VARCHAR}, #{firstRegisterDate,jdbcType=DATE}, 
+      #{ownerId,jdbcType=BIGINT}, #{vehicleModelName,jdbcType=VARCHAR}, #{vehicleModelId,jdbcType=BIGINT}, 
+      #{purchaseDate,jdbcType=DATE}, #{isNewFlag,jdbcType=VARCHAR}, #{isTransFlag,jdbcType=VARCHAR}, 
+      #{transDate,jdbcType=DATE}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, 
+      #{isLoanFlag,jdbcType=VARCHAR}, #{fuelType,jdbcType=VARCHAR}, #{drivingLicenseAddr,jdbcType=VARCHAR}, 
+      #{vehicleVoucherType,jdbcType=VARCHAR}, #{vehicleVoucherNo,jdbcType=VARCHAR}, #{vehicleVoucherDate,jdbcType=DATE}, 
+      #{orgName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TVehicleDetailInfo">
+    insert into t_vehicle_detail_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="licenseNo != null">
+        LICENSE_NO,
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE,
+      </if>
+      <if test="engineNo != null">
+        ENGINE_NO,
+      </if>
+      <if test="frameNo != null">
+        FRAME_NO,
+      </if>
+      <if test="firstRegisterDate != null">
+        FIRST_REGISTER_DATE,
+      </if>
+      <if test="ownerId != null">
+        OWNER_ID,
+      </if>
+      <if test="vehicleModelName != null">
+        VEHICLE_MODEL_NAME,
+      </if>
+      <if test="vehicleModelId != null">
+        VEHICLE_MODEL_ID,
+      </if>
+      <if test="purchaseDate != null">
+        PURCHASE_DATE,
+      </if>
+      <if test="isNewFlag != null">
+        IS_NEW_FLAG,
+      </if>
+      <if test="isTransFlag != null">
+        IS_TRANS_FLAG,
+      </if>
+      <if test="transDate != null">
+        TRANS_DATE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="isLoanFlag != null">
+        IS_LOAN_FLAG,
+      </if>
+      <if test="fuelType != null">
+        FUEL_TYPE,
+      </if>
+      <if test="drivingLicenseAddr != null">
+        DRIVING_LICENSE_ADDR,
+      </if>
+      <if test="vehicleVoucherType != null">
+        VEHICLE_VOUCHER_TYPE,
+      </if>
+      <if test="vehicleVoucherNo != null">
+        VEHICLE_VOUCHER_NO,
+      </if>
+      <if test="vehicleVoucherDate != null">
+        VEHICLE_VOUCHER_DATE,
+      </if>
+      <if test="orgName != null">
+        ORG_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="licenseNo != null">
+        #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="engineNo != null">
+        #{engineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNo != null">
+        #{frameNo,jdbcType=VARCHAR},
+      </if>
+      <if test="firstRegisterDate != null">
+        #{firstRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="vehicleModelName != null">
+        #{vehicleModelName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleModelId != null">
+        #{vehicleModelId,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseDate != null">
+        #{purchaseDate,jdbcType=DATE},
+      </if>
+      <if test="isNewFlag != null">
+        #{isNewFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isTransFlag != null">
+        #{isTransFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="transDate != null">
+        #{transDate,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLoanFlag != null">
+        #{isLoanFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelType != null">
+        #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingLicenseAddr != null">
+        #{drivingLicenseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVoucherType != null">
+        #{vehicleVoucherType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVoucherNo != null">
+        #{vehicleVoucherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVoucherDate != null">
+        #{vehicleVoucherDate,jdbcType=DATE},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TVehicleDetailInfoExample" resultType="java.lang.Long">
+    select count(*) from t_vehicle_detail_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_vehicle_detail_info
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.licenseNo != null">
+        LICENSE_NO = #{record.licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null">
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engineNo != null">
+        ENGINE_NO = #{record.engineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameNo != null">
+        FRAME_NO = #{record.frameNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstRegisterDate != null">
+        FIRST_REGISTER_DATE = #{record.firstRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="record.ownerId != null">
+        OWNER_ID = #{record.ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vehicleModelName != null">
+        VEHICLE_MODEL_NAME = #{record.vehicleModelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleModelId != null">
+        VEHICLE_MODEL_ID = #{record.vehicleModelId,jdbcType=BIGINT},
+      </if>
+      <if test="record.purchaseDate != null">
+        PURCHASE_DATE = #{record.purchaseDate,jdbcType=DATE},
+      </if>
+      <if test="record.isNewFlag != null">
+        IS_NEW_FLAG = #{record.isNewFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTransFlag != null">
+        IS_TRANS_FLAG = #{record.isTransFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDate != null">
+        TRANS_DATE = #{record.transDate,jdbcType=DATE},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isLoanFlag != null">
+        IS_LOAN_FLAG = #{record.isLoanFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuelType != null">
+        FUEL_TYPE = #{record.fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drivingLicenseAddr != null">
+        DRIVING_LICENSE_ADDR = #{record.drivingLicenseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleVoucherType != null">
+        VEHICLE_VOUCHER_TYPE = #{record.vehicleVoucherType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleVoucherNo != null">
+        VEHICLE_VOUCHER_NO = #{record.vehicleVoucherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleVoucherDate != null">
+        VEHICLE_VOUCHER_DATE = #{record.vehicleVoucherDate,jdbcType=DATE},
+      </if>
+      <if test="record.orgName != null">
+        ORG_NAME = #{record.orgName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_vehicle_detail_info
+    set ID = #{record.id,jdbcType=BIGINT},
+      LICENSE_NO = #{record.licenseNo,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      ENGINE_NO = #{record.engineNo,jdbcType=VARCHAR},
+      FRAME_NO = #{record.frameNo,jdbcType=VARCHAR},
+      FIRST_REGISTER_DATE = #{record.firstRegisterDate,jdbcType=DATE},
+      OWNER_ID = #{record.ownerId,jdbcType=BIGINT},
+      VEHICLE_MODEL_NAME = #{record.vehicleModelName,jdbcType=VARCHAR},
+      VEHICLE_MODEL_ID = #{record.vehicleModelId,jdbcType=BIGINT},
+      PURCHASE_DATE = #{record.purchaseDate,jdbcType=DATE},
+      IS_NEW_FLAG = #{record.isNewFlag,jdbcType=VARCHAR},
+      IS_TRANS_FLAG = #{record.isTransFlag,jdbcType=VARCHAR},
+      TRANS_DATE = #{record.transDate,jdbcType=DATE},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      IS_LOAN_FLAG = #{record.isLoanFlag,jdbcType=VARCHAR},
+      FUEL_TYPE = #{record.fuelType,jdbcType=VARCHAR},
+      DRIVING_LICENSE_ADDR = #{record.drivingLicenseAddr,jdbcType=VARCHAR},
+      VEHICLE_VOUCHER_TYPE = #{record.vehicleVoucherType,jdbcType=VARCHAR},
+      VEHICLE_VOUCHER_NO = #{record.vehicleVoucherNo,jdbcType=VARCHAR},
+      VEHICLE_VOUCHER_DATE = #{record.vehicleVoucherDate,jdbcType=DATE},
+      ORG_NAME = #{record.orgName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TVehicleDetailInfo">
+    update t_vehicle_detail_info
+    <set>
+      <if test="licenseNo != null">
+        LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="engineNo != null">
+        ENGINE_NO = #{engineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNo != null">
+        FRAME_NO = #{frameNo,jdbcType=VARCHAR},
+      </if>
+      <if test="firstRegisterDate != null">
+        FIRST_REGISTER_DATE = #{firstRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="ownerId != null">
+        OWNER_ID = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="vehicleModelName != null">
+        VEHICLE_MODEL_NAME = #{vehicleModelName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleModelId != null">
+        VEHICLE_MODEL_ID = #{vehicleModelId,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseDate != null">
+        PURCHASE_DATE = #{purchaseDate,jdbcType=DATE},
+      </if>
+      <if test="isNewFlag != null">
+        IS_NEW_FLAG = #{isNewFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isTransFlag != null">
+        IS_TRANS_FLAG = #{isTransFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="transDate != null">
+        TRANS_DATE = #{transDate,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLoanFlag != null">
+        IS_LOAN_FLAG = #{isLoanFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelType != null">
+        FUEL_TYPE = #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingLicenseAddr != null">
+        DRIVING_LICENSE_ADDR = #{drivingLicenseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVoucherType != null">
+        VEHICLE_VOUCHER_TYPE = #{vehicleVoucherType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVoucherNo != null">
+        VEHICLE_VOUCHER_NO = #{vehicleVoucherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVoucherDate != null">
+        VEHICLE_VOUCHER_DATE = #{vehicleVoucherDate,jdbcType=DATE},
+      </if>
+      <if test="orgName != null">
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TVehicleDetailInfo">
+    update t_vehicle_detail_info
+    set LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      ENGINE_NO = #{engineNo,jdbcType=VARCHAR},
+      FRAME_NO = #{frameNo,jdbcType=VARCHAR},
+      FIRST_REGISTER_DATE = #{firstRegisterDate,jdbcType=DATE},
+      OWNER_ID = #{ownerId,jdbcType=BIGINT},
+      VEHICLE_MODEL_NAME = #{vehicleModelName,jdbcType=VARCHAR},
+      VEHICLE_MODEL_ID = #{vehicleModelId,jdbcType=BIGINT},
+      PURCHASE_DATE = #{purchaseDate,jdbcType=DATE},
+      IS_NEW_FLAG = #{isNewFlag,jdbcType=VARCHAR},
+      IS_TRANS_FLAG = #{isTransFlag,jdbcType=VARCHAR},
+      TRANS_DATE = #{transDate,jdbcType=DATE},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      IS_LOAN_FLAG = #{isLoanFlag,jdbcType=VARCHAR},
+      FUEL_TYPE = #{fuelType,jdbcType=VARCHAR},
+      DRIVING_LICENSE_ADDR = #{drivingLicenseAddr,jdbcType=VARCHAR},
+      VEHICLE_VOUCHER_TYPE = #{vehicleVoucherType,jdbcType=VARCHAR},
+      VEHICLE_VOUCHER_NO = #{vehicleVoucherNo,jdbcType=VARCHAR},
+      VEHICLE_VOUCHER_DATE = #{vehicleVoucherDate,jdbcType=DATE},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

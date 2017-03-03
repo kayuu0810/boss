@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TSalOrderChargeMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TSalOrderCharge">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PAY_URL" jdbcType="VARCHAR" property="payUrl" />
+    <result column="PAY_BUSINESS_CODE" jdbcType="VARCHAR" property="payBusinessCode" />
+    <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="PAY_METHOD" jdbcType="VARCHAR" property="payMethod" />
+    <result column="PAY_AMOUNT" jdbcType="DECIMAL" property="payAmount" />
+    <result column="PAY_CODE" jdbcType="VARCHAR" property="payCode" />
+    <result column="RECEIVER" jdbcType="CHAR" property="receiver" />
+    <result column="REALITY_PAY_TIME" jdbcType="TIMESTAMP" property="realityPayTime" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="LAST_UPDATE_USER" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PAY_URL, PAY_BUSINESS_CODE, ORDER_ID, PAY_METHOD, PAY_AMOUNT, PAY_CODE, RECEIVER, 
+    REALITY_PAY_TIME, STATUS, CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TSalOrderChargeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sal_order_charge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sal_order_charge
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sal_order_charge
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TSalOrderChargeExample">
+    delete from t_sal_order_charge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TSalOrderCharge">
+    insert into t_sal_order_charge (ID, PAY_URL, PAY_BUSINESS_CODE, 
+      ORDER_ID, PAY_METHOD, PAY_AMOUNT, 
+      PAY_CODE, RECEIVER, REALITY_PAY_TIME, 
+      STATUS, CREATE_USER, CREATE_DATE, 
+      LAST_UPDATE_USER, LAST_UPDATE_DATE)
+    values (#{id,jdbcType=BIGINT}, #{payUrl,jdbcType=VARCHAR}, #{payBusinessCode,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=BIGINT}, #{payMethod,jdbcType=VARCHAR}, #{payAmount,jdbcType=DECIMAL}, 
+      #{payCode,jdbcType=VARCHAR}, #{receiver,jdbcType=CHAR}, #{realityPayTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TSalOrderCharge">
+    insert into t_sal_order_charge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="payUrl != null">
+        PAY_URL,
+      </if>
+      <if test="payBusinessCode != null">
+        PAY_BUSINESS_CODE,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="payMethod != null">
+        PAY_METHOD,
+      </if>
+      <if test="payAmount != null">
+        PAY_AMOUNT,
+      </if>
+      <if test="payCode != null">
+        PAY_CODE,
+      </if>
+      <if test="receiver != null">
+        RECEIVER,
+      </if>
+      <if test="realityPayTime != null">
+        REALITY_PAY_TIME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="payUrl != null">
+        #{payUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="payBusinessCode != null">
+        #{payBusinessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null">
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payCode != null">
+        #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=CHAR},
+      </if>
+      <if test="realityPayTime != null">
+        #{realityPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TSalOrderChargeExample" resultType="java.lang.Long">
+    select count(*) from t_sal_order_charge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_sal_order_charge
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.payUrl != null">
+        PAY_URL = #{record.payUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payBusinessCode != null">
+        PAY_BUSINESS_CODE = #{record.payBusinessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        ORDER_ID = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.payMethod != null">
+        PAY_METHOD = #{record.payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAmount != null">
+        PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payCode != null">
+        PAY_CODE = #{record.payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiver != null">
+        RECEIVER = #{record.receiver,jdbcType=CHAR},
+      </if>
+      <if test="record.realityPayTime != null">
+        REALITY_PAY_TIME = #{record.realityPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_sal_order_charge
+    set ID = #{record.id,jdbcType=BIGINT},
+      PAY_URL = #{record.payUrl,jdbcType=VARCHAR},
+      PAY_BUSINESS_CODE = #{record.payBusinessCode,jdbcType=VARCHAR},
+      ORDER_ID = #{record.orderId,jdbcType=BIGINT},
+      PAY_METHOD = #{record.payMethod,jdbcType=VARCHAR},
+      PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      PAY_CODE = #{record.payCode,jdbcType=VARCHAR},
+      RECEIVER = #{record.receiver,jdbcType=CHAR},
+      REALITY_PAY_TIME = #{record.realityPayTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TSalOrderCharge">
+    update t_sal_order_charge
+    <set>
+      <if test="payUrl != null">
+        PAY_URL = #{payUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="payBusinessCode != null">
+        PAY_BUSINESS_CODE = #{payBusinessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="payMethod != null">
+        PAY_METHOD = #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null">
+        PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payCode != null">
+        PAY_CODE = #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        RECEIVER = #{receiver,jdbcType=CHAR},
+      </if>
+      <if test="realityPayTime != null">
+        REALITY_PAY_TIME = #{realityPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TSalOrderCharge">
+    update t_sal_order_charge
+    set PAY_URL = #{payUrl,jdbcType=VARCHAR},
+      PAY_BUSINESS_CODE = #{payBusinessCode,jdbcType=VARCHAR},
+      ORDER_ID = #{orderId,jdbcType=BIGINT},
+      PAY_METHOD = #{payMethod,jdbcType=VARCHAR},
+      PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      PAY_CODE = #{payCode,jdbcType=VARCHAR},
+      RECEIVER = #{receiver,jdbcType=CHAR},
+      REALITY_PAY_TIME = #{realityPayTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

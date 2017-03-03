@@ -7,11 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.enci</groupId>
-    <artifactId>boss-oms-rpc-server</artifactId>
+    <artifactId>boss-oms-job</artifactId>
     <packaging>jar</packaging>
 
-    <name>boss-oms-rpc-server</name>
+    <name>boss-oms-job</name>
     <url>http://maven.apache.org</url>
 
     <properties>

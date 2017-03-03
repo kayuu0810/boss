@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TRateInfoMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TRateInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="ins_code" jdbcType="VARCHAR" property="insCode" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="vci_rate" jdbcType="DECIMAL" property="vciRate" />
+    <result column="tci_rate" jdbcType="DECIMAL" property="tciRate" />
+    <result column="tradition_vci_rate" jdbcType="VARCHAR" property="traditionVciRate" />
+    <result column="tradition_tci_rate" jdbcType="VARCHAR" property="traditionTciRate" />
+    <result column="net_vci_rate" jdbcType="VARCHAR" property="netVciRate" />
+    <result column="net_tci_rate" jdbcType="VARCHAR" property="netTciRate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="LAST_UPDATE_USER" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="LAST_UPDATE_TYPE" jdbcType="VARCHAR" property="lastUpdateType" />
+    <result column="route_code" jdbcType="VARCHAR" property="routeCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, area_id, ins_code, company_name, province, city, type, vci_rate, tci_rate, tradition_vci_rate, 
+    tradition_tci_rate, net_vci_rate, net_tci_rate, create_date, update_date, LAST_UPDATE_USER, 
+    LAST_UPDATE_TYPE, route_code
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TRateInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_rate_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_rate_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_rate_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TRateInfoExample">
+    delete from t_rate_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TRateInfo">
+    insert into t_rate_info (id, area_id, ins_code, 
+      company_name, province, city, 
+      type, vci_rate, tci_rate, 
+      tradition_vci_rate, tradition_tci_rate, net_vci_rate, 
+      net_tci_rate, create_date, update_date, 
+      LAST_UPDATE_USER, LAST_UPDATE_TYPE, route_code
+      )
+    values (#{id,jdbcType=BIGINT}, #{areaId,jdbcType=INTEGER}, #{insCode,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{vciRate,jdbcType=DECIMAL}, #{tciRate,jdbcType=DECIMAL}, 
+      #{traditionVciRate,jdbcType=VARCHAR}, #{traditionTciRate,jdbcType=VARCHAR}, #{netVciRate,jdbcType=VARCHAR}, 
+      #{netTciRate,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateType,jdbcType=VARCHAR}, #{routeCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TRateInfo">
+    insert into t_rate_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="insCode != null">
+        ins_code,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="vciRate != null">
+        vci_rate,
+      </if>
+      <if test="tciRate != null">
+        tci_rate,
+      </if>
+      <if test="traditionVciRate != null">
+        tradition_vci_rate,
+      </if>
+      <if test="traditionTciRate != null">
+        tradition_tci_rate,
+      </if>
+      <if test="netVciRate != null">
+        net_vci_rate,
+      </if>
+      <if test="netTciRate != null">
+        net_tci_rate,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER,
+      </if>
+      <if test="lastUpdateType != null">
+        LAST_UPDATE_TYPE,
+      </if>
+      <if test="routeCode != null">
+        route_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="insCode != null">
+        #{insCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="vciRate != null">
+        #{vciRate,jdbcType=DECIMAL},
+      </if>
+      <if test="tciRate != null">
+        #{tciRate,jdbcType=DECIMAL},
+      </if>
+      <if test="traditionVciRate != null">
+        #{traditionVciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="traditionTciRate != null">
+        #{traditionTciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netVciRate != null">
+        #{netVciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netTciRate != null">
+        #{netTciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateType != null">
+        #{lastUpdateType,jdbcType=VARCHAR},
+      </if>
+      <if test="routeCode != null">
+        #{routeCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TRateInfoExample" resultType="java.lang.Long">
+    select count(*) from t_rate_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_rate_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.areaId != null">
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.insCode != null">
+        ins_code = #{record.insCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.vciRate != null">
+        vci_rate = #{record.vciRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tciRate != null">
+        tci_rate = #{record.tciRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.traditionVciRate != null">
+        tradition_vci_rate = #{record.traditionVciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.traditionTciRate != null">
+        tradition_tci_rate = #{record.traditionTciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netVciRate != null">
+        net_vci_rate = #{record.netVciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netTciRate != null">
+        net_tci_rate = #{record.netTciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateType != null">
+        LAST_UPDATE_TYPE = #{record.lastUpdateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeCode != null">
+        route_code = #{record.routeCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_rate_info
+    set id = #{record.id,jdbcType=BIGINT},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      ins_code = #{record.insCode,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=CHAR},
+      vci_rate = #{record.vciRate,jdbcType=DECIMAL},
+      tci_rate = #{record.tciRate,jdbcType=DECIMAL},
+      tradition_vci_rate = #{record.traditionVciRate,jdbcType=VARCHAR},
+      tradition_tci_rate = #{record.traditionTciRate,jdbcType=VARCHAR},
+      net_vci_rate = #{record.netVciRate,jdbcType=VARCHAR},
+      net_tci_rate = #{record.netTciRate,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_TYPE = #{record.lastUpdateType,jdbcType=VARCHAR},
+      route_code = #{record.routeCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TRateInfo">
+    update t_rate_info
+    <set>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="insCode != null">
+        ins_code = #{insCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="vciRate != null">
+        vci_rate = #{vciRate,jdbcType=DECIMAL},
+      </if>
+      <if test="tciRate != null">
+        tci_rate = #{tciRate,jdbcType=DECIMAL},
+      </if>
+      <if test="traditionVciRate != null">
+        tradition_vci_rate = #{traditionVciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="traditionTciRate != null">
+        tradition_tci_rate = #{traditionTciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netVciRate != null">
+        net_vci_rate = #{netVciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netTciRate != null">
+        net_tci_rate = #{netTciRate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateType != null">
+        LAST_UPDATE_TYPE = #{lastUpdateType,jdbcType=VARCHAR},
+      </if>
+      <if test="routeCode != null">
+        route_code = #{routeCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TRateInfo">
+    update t_rate_info
+    set area_id = #{areaId,jdbcType=INTEGER},
+      ins_code = #{insCode,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      vci_rate = #{vciRate,jdbcType=DECIMAL},
+      tci_rate = #{tciRate,jdbcType=DECIMAL},
+      tradition_vci_rate = #{traditionVciRate,jdbcType=VARCHAR},
+      tradition_tci_rate = #{traditionTciRate,jdbcType=VARCHAR},
+      net_vci_rate = #{netVciRate,jdbcType=VARCHAR},
+      net_tci_rate = #{netTciRate,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_TYPE = #{lastUpdateType,jdbcType=VARCHAR},
+      route_code = #{routeCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

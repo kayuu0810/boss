@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TSalPolicyHolderMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TSalPolicyHolder">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="POLICY_ID" jdbcType="BIGINT" property="policyId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NAME_PINYIN" jdbcType="VARCHAR" property="namePinyin" />
+    <result column="ENGLISH_NAME" jdbcType="VARCHAR" property="englishName" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="CERTIFICATE_TYPE" jdbcType="VARCHAR" property="certificateType" />
+    <result column="CERTIFICATE_NO" jdbcType="VARCHAR" property="certificateNo" />
+    <result column="VALID_START_DATE" jdbcType="DATE" property="validStartDate" />
+    <result column="VALID_END_DATE" jdbcType="DATE" property="validEndDate" />
+    <result column="BIRTHDATE" jdbcType="DATE" property="birthdate" />
+    <result column="HEIGHT" jdbcType="DECIMAL" property="height" />
+    <result column="WEIGHT" jdbcType="DECIMAL" property="weight" />
+    <result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+    <result column="INDUSIRY" jdbcType="VARCHAR" property="indusiry" />
+    <result column="WORK_TYPE" jdbcType="VARCHAR" property="workType" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="MOBILE" jdbcType="CHAR" property="mobile" />
+    <result column="AREA_CODE" jdbcType="VARCHAR" property="areaCode" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="EXTENSION" jdbcType="VARCHAR" property="extension" />
+    <result column="IS_SMOKE" jdbcType="CHAR" property="isSmoke" />
+    <result column="RESIDE_COUNTRY" jdbcType="VARCHAR" property="resideCountry" />
+    <result column="NATIONALITY" jdbcType="VARCHAR" property="nationality" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="AREA" jdbcType="VARCHAR" property="area" />
+    <result column="CERTIFICATE_ADDRESS" jdbcType="VARCHAR" property="certificateAddress" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, POLICY_ID, NAME, NAME_PINYIN, ENGLISH_NAME, SEX, CERTIFICATE_TYPE, CERTIFICATE_NO, 
+    VALID_START_DATE, VALID_END_DATE, BIRTHDATE, HEIGHT, WEIGHT, PROFESSION, INDUSIRY, 
+    WORK_TYPE, EMAIL, MOBILE, AREA_CODE, TELEPHONE, EXTENSION, IS_SMOKE, RESIDE_COUNTRY, 
+    NATIONALITY, PROVINCE, CITY, AREA, CERTIFICATE_ADDRESS
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TSalPolicyHolderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sal_policy_holder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sal_policy_holder
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sal_policy_holder
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TSalPolicyHolderExample">
+    delete from t_sal_policy_holder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TSalPolicyHolder">
+    insert into t_sal_policy_holder (ID, POLICY_ID, NAME, 
+      NAME_PINYIN, ENGLISH_NAME, SEX, 
+      CERTIFICATE_TYPE, CERTIFICATE_NO, VALID_START_DATE, 
+      VALID_END_DATE, BIRTHDATE, HEIGHT, 
+      WEIGHT, PROFESSION, INDUSIRY, 
+      WORK_TYPE, EMAIL, MOBILE, 
+      AREA_CODE, TELEPHONE, EXTENSION, 
+      IS_SMOKE, RESIDE_COUNTRY, NATIONALITY, 
+      PROVINCE, CITY, AREA, 
+      CERTIFICATE_ADDRESS)
+    values (#{id,jdbcType=BIGINT}, #{policyId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{namePinyin,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{certificateType,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, #{validStartDate,jdbcType=DATE}, 
+      #{validEndDate,jdbcType=DATE}, #{birthdate,jdbcType=DATE}, #{height,jdbcType=DECIMAL}, 
+      #{weight,jdbcType=DECIMAL}, #{profession,jdbcType=VARCHAR}, #{indusiry,jdbcType=VARCHAR}, 
+      #{workType,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{extension,jdbcType=VARCHAR}, 
+      #{isSmoke,jdbcType=CHAR}, #{resideCountry,jdbcType=VARCHAR}, #{nationality,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{certificateAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TSalPolicyHolder">
+    insert into t_sal_policy_holder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="policyId != null">
+        POLICY_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="namePinyin != null">
+        NAME_PINYIN,
+      </if>
+      <if test="englishName != null">
+        ENGLISH_NAME,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="certificateType != null">
+        CERTIFICATE_TYPE,
+      </if>
+      <if test="certificateNo != null">
+        CERTIFICATE_NO,
+      </if>
+      <if test="validStartDate != null">
+        VALID_START_DATE,
+      </if>
+      <if test="validEndDate != null">
+        VALID_END_DATE,
+      </if>
+      <if test="birthdate != null">
+        BIRTHDATE,
+      </if>
+      <if test="height != null">
+        HEIGHT,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+      <if test="profession != null">
+        PROFESSION,
+      </if>
+      <if test="indusiry != null">
+        INDUSIRY,
+      </if>
+      <if test="workType != null">
+        WORK_TYPE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="mobile != null">
+        MOBILE,
+      </if>
+      <if test="areaCode != null">
+        AREA_CODE,
+      </if>
+      <if test="telephone != null">
+        TELEPHONE,
+      </if>
+      <if test="extension != null">
+        EXTENSION,
+      </if>
+      <if test="isSmoke != null">
+        IS_SMOKE,
+      </if>
+      <if test="resideCountry != null">
+        RESIDE_COUNTRY,
+      </if>
+      <if test="nationality != null">
+        NATIONALITY,
+      </if>
+      <if test="province != null">
+        PROVINCE,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="area != null">
+        AREA,
+      </if>
+      <if test="certificateAddress != null">
+        CERTIFICATE_ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="policyId != null">
+        #{policyId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="namePinyin != null">
+        #{namePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null">
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null">
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="validStartDate != null">
+        #{validStartDate,jdbcType=DATE},
+      </if>
+      <if test="validEndDate != null">
+        #{validEndDate,jdbcType=DATE},
+      </if>
+      <if test="birthdate != null">
+        #{birthdate,jdbcType=DATE},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="indusiry != null">
+        #{indusiry,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null">
+        #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="isSmoke != null">
+        #{isSmoke,jdbcType=CHAR},
+      </if>
+      <if test="resideCountry != null">
+        #{resideCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateAddress != null">
+        #{certificateAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TSalPolicyHolderExample" resultType="java.lang.Long">
+    select count(*) from t_sal_policy_holder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_sal_policy_holder
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.policyId != null">
+        POLICY_ID = #{record.policyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namePinyin != null">
+        NAME_PINYIN = #{record.namePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.englishName != null">
+        ENGLISH_NAME = #{record.englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        SEX = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateType != null">
+        CERTIFICATE_TYPE = #{record.certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateNo != null">
+        CERTIFICATE_NO = #{record.certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validStartDate != null">
+        VALID_START_DATE = #{record.validStartDate,jdbcType=DATE},
+      </if>
+      <if test="record.validEndDate != null">
+        VALID_END_DATE = #{record.validEndDate,jdbcType=DATE},
+      </if>
+      <if test="record.birthdate != null">
+        BIRTHDATE = #{record.birthdate,jdbcType=DATE},
+      </if>
+      <if test="record.height != null">
+        HEIGHT = #{record.height,jdbcType=DECIMAL},
+      </if>
+      <if test="record.weight != null">
+        WEIGHT = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profession != null">
+        PROFESSION = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indusiry != null">
+        INDUSIRY = #{record.indusiry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        WORK_TYPE = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        MOBILE = #{record.mobile,jdbcType=CHAR},
+      </if>
+      <if test="record.areaCode != null">
+        AREA_CODE = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null">
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extension != null">
+        EXTENSION = #{record.extension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSmoke != null">
+        IS_SMOKE = #{record.isSmoke,jdbcType=CHAR},
+      </if>
+      <if test="record.resideCountry != null">
+        RESIDE_COUNTRY = #{record.resideCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationality != null">
+        NATIONALITY = #{record.nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        PROVINCE = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        CITY = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        AREA = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateAddress != null">
+        CERTIFICATE_ADDRESS = #{record.certificateAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_sal_policy_holder
+    set ID = #{record.id,jdbcType=BIGINT},
+      POLICY_ID = #{record.policyId,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      NAME_PINYIN = #{record.namePinyin,jdbcType=VARCHAR},
+      ENGLISH_NAME = #{record.englishName,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=VARCHAR},
+      CERTIFICATE_TYPE = #{record.certificateType,jdbcType=VARCHAR},
+      CERTIFICATE_NO = #{record.certificateNo,jdbcType=VARCHAR},
+      VALID_START_DATE = #{record.validStartDate,jdbcType=DATE},
+      VALID_END_DATE = #{record.validEndDate,jdbcType=DATE},
+      BIRTHDATE = #{record.birthdate,jdbcType=DATE},
+      HEIGHT = #{record.height,jdbcType=DECIMAL},
+      WEIGHT = #{record.weight,jdbcType=DECIMAL},
+      PROFESSION = #{record.profession,jdbcType=VARCHAR},
+      INDUSIRY = #{record.indusiry,jdbcType=VARCHAR},
+      WORK_TYPE = #{record.workType,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=CHAR},
+      AREA_CODE = #{record.areaCode,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      EXTENSION = #{record.extension,jdbcType=VARCHAR},
+      IS_SMOKE = #{record.isSmoke,jdbcType=CHAR},
+      RESIDE_COUNTRY = #{record.resideCountry,jdbcType=VARCHAR},
+      NATIONALITY = #{record.nationality,jdbcType=VARCHAR},
+      PROVINCE = #{record.province,jdbcType=VARCHAR},
+      CITY = #{record.city,jdbcType=VARCHAR},
+      AREA = #{record.area,jdbcType=VARCHAR},
+      CERTIFICATE_ADDRESS = #{record.certificateAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TSalPolicyHolder">
+    update t_sal_policy_holder
+    <set>
+      <if test="policyId != null">
+        POLICY_ID = #{policyId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="namePinyin != null">
+        NAME_PINYIN = #{namePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null">
+        ENGLISH_NAME = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        CERTIFICATE_TYPE = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null">
+        CERTIFICATE_NO = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="validStartDate != null">
+        VALID_START_DATE = #{validStartDate,jdbcType=DATE},
+      </if>
+      <if test="validEndDate != null">
+        VALID_END_DATE = #{validEndDate,jdbcType=DATE},
+      </if>
+      <if test="birthdate != null">
+        BIRTHDATE = #{birthdate,jdbcType=DATE},
+      </if>
+      <if test="height != null">
+        HEIGHT = #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null">
+        WEIGHT = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="profession != null">
+        PROFESSION = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="indusiry != null">
+        INDUSIRY = #{indusiry,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        WORK_TYPE = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="areaCode != null">
+        AREA_CODE = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null">
+        EXTENSION = #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="isSmoke != null">
+        IS_SMOKE = #{isSmoke,jdbcType=CHAR},
+      </if>
+      <if test="resideCountry != null">
+        RESIDE_COUNTRY = #{resideCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        NATIONALITY = #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateAddress != null">
+        CERTIFICATE_ADDRESS = #{certificateAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TSalPolicyHolder">
+    update t_sal_policy_holder
+    set POLICY_ID = #{policyId,jdbcType=BIGINT},
+      NAME = #{name,jdbcType=VARCHAR},
+      NAME_PINYIN = #{namePinyin,jdbcType=VARCHAR},
+      ENGLISH_NAME = #{englishName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      CERTIFICATE_TYPE = #{certificateType,jdbcType=VARCHAR},
+      CERTIFICATE_NO = #{certificateNo,jdbcType=VARCHAR},
+      VALID_START_DATE = #{validStartDate,jdbcType=DATE},
+      VALID_END_DATE = #{validEndDate,jdbcType=DATE},
+      BIRTHDATE = #{birthdate,jdbcType=DATE},
+      HEIGHT = #{height,jdbcType=DECIMAL},
+      WEIGHT = #{weight,jdbcType=DECIMAL},
+      PROFESSION = #{profession,jdbcType=VARCHAR},
+      INDUSIRY = #{indusiry,jdbcType=VARCHAR},
+      WORK_TYPE = #{workType,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=CHAR},
+      AREA_CODE = #{areaCode,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      EXTENSION = #{extension,jdbcType=VARCHAR},
+      IS_SMOKE = #{isSmoke,jdbcType=CHAR},
+      RESIDE_COUNTRY = #{resideCountry,jdbcType=VARCHAR},
+      NATIONALITY = #{nationality,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      CERTIFICATE_ADDRESS = #{certificateAddress,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

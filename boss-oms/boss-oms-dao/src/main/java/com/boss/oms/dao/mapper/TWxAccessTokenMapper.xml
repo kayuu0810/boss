@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TWxAccessTokenMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TWxAccessToken">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="expires_in" jdbcType="INTEGER" property="expiresIn" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="account_originid" jdbcType="VARCHAR" property="accountOriginid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, access_token, expires_in, update_date, account_originid
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TWxAccessTokenExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_wx_access_token
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_wx_access_token
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_wx_access_token
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TWxAccessTokenExample">
+    delete from t_wx_access_token
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TWxAccessToken">
+    insert into t_wx_access_token (id, access_token, expires_in, 
+      update_date, account_originid)
+    values (#{id,jdbcType=INTEGER}, #{accessToken,jdbcType=VARCHAR}, #{expiresIn,jdbcType=INTEGER}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{accountOriginid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TWxAccessToken">
+    insert into t_wx_access_token
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accessToken != null">
+        access_token,
+      </if>
+      <if test="expiresIn != null">
+        expires_in,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="accountOriginid != null">
+        account_originid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accessToken != null">
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null">
+        #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountOriginid != null">
+        #{accountOriginid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TWxAccessTokenExample" resultType="java.lang.Long">
+    select count(*) from t_wx_access_token
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_wx_access_token
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessToken != null">
+        access_token = #{record.accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expiresIn != null">
+        expires_in = #{record.expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.accountOriginid != null">
+        account_originid = #{record.accountOriginid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_wx_access_token
+    set id = #{record.id,jdbcType=INTEGER},
+      access_token = #{record.accessToken,jdbcType=VARCHAR},
+      expires_in = #{record.expiresIn,jdbcType=INTEGER},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      account_originid = #{record.accountOriginid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TWxAccessToken">
+    update t_wx_access_token
+    <set>
+      <if test="accessToken != null">
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null">
+        expires_in = #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountOriginid != null">
+        account_originid = #{accountOriginid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TWxAccessToken">
+    update t_wx_access_token
+    set access_token = #{accessToken,jdbcType=VARCHAR},
+      expires_in = #{expiresIn,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      account_originid = #{accountOriginid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TBaseInsuranceCodeMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TBaseInsuranceCode">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="INSURANCE_CODE" jdbcType="VARCHAR" property="insuranceCode" />
+    <result column="INSURANCE_NAME" jdbcType="VARCHAR" property="insuranceName" />
+    <result column="INSURANCE_PROPERTY" jdbcType="VARCHAR" property="insuranceProperty" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="LAST_UPDATE_BY" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="INSURANCE_BUDGETS" jdbcType="VARCHAR" property="insuranceBudgets" />
+    <result column="INSURANCE_PROMTIONS" jdbcType="VARCHAR" property="insurancePromtions" />
+    <result column="INSURANCE_ORDER" jdbcType="VARCHAR" property="insuranceOrder" />
+    <result column="INSURANCE_BUDGET_DETAIL" jdbcType="VARCHAR" property="insuranceBudgetDetail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, INSURANCE_CODE, INSURANCE_NAME, INSURANCE_PROPERTY, STATUS, CREATE_TIME, CREATE_BY, 
+    LAST_UPDATE_TIME, LAST_UPDATE_BY, INSURANCE_BUDGETS, INSURANCE_PROMTIONS, INSURANCE_ORDER, 
+    INSURANCE_BUDGET_DETAIL
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TBaseInsuranceCodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_base_insurance_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_insurance_code
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_base_insurance_code
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TBaseInsuranceCodeExample">
+    delete from t_base_insurance_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TBaseInsuranceCode">
+    insert into t_base_insurance_code (ID, INSURANCE_CODE, INSURANCE_NAME, 
+      INSURANCE_PROPERTY, STATUS, CREATE_TIME, 
+      CREATE_BY, LAST_UPDATE_TIME, LAST_UPDATE_BY, 
+      INSURANCE_BUDGETS, INSURANCE_PROMTIONS, INSURANCE_ORDER, 
+      INSURANCE_BUDGET_DETAIL)
+    values (#{id,jdbcType=INTEGER}, #{insuranceCode,jdbcType=VARCHAR}, #{insuranceName,jdbcType=VARCHAR}, 
+      #{insuranceProperty,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, 
+      #{insuranceBudgets,jdbcType=VARCHAR}, #{insurancePromtions,jdbcType=VARCHAR}, #{insuranceOrder,jdbcType=VARCHAR}, 
+      #{insuranceBudgetDetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TBaseInsuranceCode">
+    insert into t_base_insurance_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="insuranceCode != null">
+        INSURANCE_CODE,
+      </if>
+      <if test="insuranceName != null">
+        INSURANCE_NAME,
+      </if>
+      <if test="insuranceProperty != null">
+        INSURANCE_PROPERTY,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="lastUpdateBy != null">
+        LAST_UPDATE_BY,
+      </if>
+      <if test="insuranceBudgets != null">
+        INSURANCE_BUDGETS,
+      </if>
+      <if test="insurancePromtions != null">
+        INSURANCE_PROMTIONS,
+      </if>
+      <if test="insuranceOrder != null">
+        INSURANCE_ORDER,
+      </if>
+      <if test="insuranceBudgetDetail != null">
+        INSURANCE_BUDGET_DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceCode != null">
+        #{insuranceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceName != null">
+        #{insuranceName,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceProperty != null">
+        #{insuranceProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceBudgets != null">
+        #{insuranceBudgets,jdbcType=VARCHAR},
+      </if>
+      <if test="insurancePromtions != null">
+        #{insurancePromtions,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceOrder != null">
+        #{insuranceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceBudgetDetail != null">
+        #{insuranceBudgetDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TBaseInsuranceCodeExample" resultType="java.lang.Long">
+    select count(*) from t_base_insurance_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_base_insurance_code
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.insuranceCode != null">
+        INSURANCE_CODE = #{record.insuranceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceName != null">
+        INSURANCE_NAME = #{record.insuranceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceProperty != null">
+        INSURANCE_PROPERTY = #{record.insuranceProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateBy != null">
+        LAST_UPDATE_BY = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceBudgets != null">
+        INSURANCE_BUDGETS = #{record.insuranceBudgets,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insurancePromtions != null">
+        INSURANCE_PROMTIONS = #{record.insurancePromtions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceOrder != null">
+        INSURANCE_ORDER = #{record.insuranceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceBudgetDetail != null">
+        INSURANCE_BUDGET_DETAIL = #{record.insuranceBudgetDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_base_insurance_code
+    set ID = #{record.id,jdbcType=INTEGER},
+      INSURANCE_CODE = #{record.insuranceCode,jdbcType=VARCHAR},
+      INSURANCE_NAME = #{record.insuranceName,jdbcType=VARCHAR},
+      INSURANCE_PROPERTY = #{record.insuranceProperty,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      LAST_UPDATE_TIME = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      INSURANCE_BUDGETS = #{record.insuranceBudgets,jdbcType=VARCHAR},
+      INSURANCE_PROMTIONS = #{record.insurancePromtions,jdbcType=VARCHAR},
+      INSURANCE_ORDER = #{record.insuranceOrder,jdbcType=VARCHAR},
+      INSURANCE_BUDGET_DETAIL = #{record.insuranceBudgetDetail,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TBaseInsuranceCode">
+    update t_base_insurance_code
+    <set>
+      <if test="insuranceCode != null">
+        INSURANCE_CODE = #{insuranceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceName != null">
+        INSURANCE_NAME = #{insuranceName,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceProperty != null">
+        INSURANCE_PROPERTY = #{insuranceProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null">
+        LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceBudgets != null">
+        INSURANCE_BUDGETS = #{insuranceBudgets,jdbcType=VARCHAR},
+      </if>
+      <if test="insurancePromtions != null">
+        INSURANCE_PROMTIONS = #{insurancePromtions,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceOrder != null">
+        INSURANCE_ORDER = #{insuranceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceBudgetDetail != null">
+        INSURANCE_BUDGET_DETAIL = #{insuranceBudgetDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TBaseInsuranceCode">
+    update t_base_insurance_code
+    set INSURANCE_CODE = #{insuranceCode,jdbcType=VARCHAR},
+      INSURANCE_NAME = #{insuranceName,jdbcType=VARCHAR},
+      INSURANCE_PROPERTY = #{insuranceProperty,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      INSURANCE_BUDGETS = #{insuranceBudgets,jdbcType=VARCHAR},
+      INSURANCE_PROMTIONS = #{insurancePromtions,jdbcType=VARCHAR},
+      INSURANCE_ORDER = #{insuranceOrder,jdbcType=VARCHAR},
+      INSURANCE_BUDGET_DETAIL = #{insuranceBudgetDetail,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

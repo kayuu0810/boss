@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.TVehicleTaxInfoMapper">
+  <resultMap id="BaseResultMap" type="com.boss.oms.dao.model.TVehicleTaxInfo">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="TAX_PAYER_NAME" jdbcType="VARCHAR" property="taxPayerName" />
+    <result column="TAX_PAYER_NO" jdbcType="VARCHAR" property="taxPayerNo" />
+    <result column="TAX_AUTH_CODE" jdbcType="VARCHAR" property="taxAuthCode" />
+    <result column="TAX_COUNTRY_CODE" jdbcType="VARCHAR" property="taxCountryCode" />
+    <result column="TAX_ORG" jdbcType="VARCHAR" property="taxOrg" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="LAST_UPDATE_USER" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, TAX_PAYER_NAME, TAX_PAYER_NO, TAX_AUTH_CODE, TAX_COUNTRY_CODE, TAX_ORG, 
+    CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.boss.oms.dao.model.TVehicleTaxInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_vehicle_tax_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vehicle_tax_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_vehicle_tax_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boss.oms.dao.model.TVehicleTaxInfoExample">
+    delete from t_vehicle_tax_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boss.oms.dao.model.TVehicleTaxInfo">
+    insert into t_vehicle_tax_info (ID, ORDER_ID, TAX_PAYER_NAME, 
+      TAX_PAYER_NO, TAX_AUTH_CODE, TAX_COUNTRY_CODE, 
+      TAX_ORG, CREATE_USER, CREATE_DATE, 
+      LAST_UPDATE_USER, LAST_UPDATE_DATE)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{taxPayerName,jdbcType=VARCHAR}, 
+      #{taxPayerNo,jdbcType=VARCHAR}, #{taxAuthCode,jdbcType=VARCHAR}, #{taxCountryCode,jdbcType=VARCHAR}, 
+      #{taxOrg,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boss.oms.dao.model.TVehicleTaxInfo">
+    insert into t_vehicle_tax_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="taxPayerName != null">
+        TAX_PAYER_NAME,
+      </if>
+      <if test="taxPayerNo != null">
+        TAX_PAYER_NO,
+      </if>
+      <if test="taxAuthCode != null">
+        TAX_AUTH_CODE,
+      </if>
+      <if test="taxCountryCode != null">
+        TAX_COUNTRY_CODE,
+      </if>
+      <if test="taxOrg != null">
+        TAX_ORG,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="taxPayerName != null">
+        #{taxPayerName,jdbcType=VARCHAR},
+      </if>
+      <if test="taxPayerNo != null">
+        #{taxPayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxAuthCode != null">
+        #{taxAuthCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxCountryCode != null">
+        #{taxCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxOrg != null">
+        #{taxOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boss.oms.dao.model.TVehicleTaxInfoExample" resultType="java.lang.Long">
+    select count(*) from t_vehicle_tax_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_vehicle_tax_info
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null">
+        ORDER_ID = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taxPayerName != null">
+        TAX_PAYER_NAME = #{record.taxPayerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxPayerNo != null">
+        TAX_PAYER_NO = #{record.taxPayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxAuthCode != null">
+        TAX_AUTH_CODE = #{record.taxAuthCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxCountryCode != null">
+        TAX_COUNTRY_CODE = #{record.taxCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxOrg != null">
+        TAX_ORG = #{record.taxOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_vehicle_tax_info
+    set ID = #{record.id,jdbcType=BIGINT},
+      ORDER_ID = #{record.orderId,jdbcType=BIGINT},
+      TAX_PAYER_NAME = #{record.taxPayerName,jdbcType=VARCHAR},
+      TAX_PAYER_NO = #{record.taxPayerNo,jdbcType=VARCHAR},
+      TAX_AUTH_CODE = #{record.taxAuthCode,jdbcType=VARCHAR},
+      TAX_COUNTRY_CODE = #{record.taxCountryCode,jdbcType=VARCHAR},
+      TAX_ORG = #{record.taxOrg,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{record.lastUpdateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boss.oms.dao.model.TVehicleTaxInfo">
+    update t_vehicle_tax_info
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="taxPayerName != null">
+        TAX_PAYER_NAME = #{taxPayerName,jdbcType=VARCHAR},
+      </if>
+      <if test="taxPayerNo != null">
+        TAX_PAYER_NO = #{taxPayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxAuthCode != null">
+        TAX_AUTH_CODE = #{taxAuthCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxCountryCode != null">
+        TAX_COUNTRY_CODE = #{taxCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxOrg != null">
+        TAX_ORG = #{taxOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boss.oms.dao.model.TVehicleTaxInfo">
+    update t_vehicle_tax_info
+    set ORDER_ID = #{orderId,jdbcType=BIGINT},
+      TAX_PAYER_NAME = #{taxPayerName,jdbcType=VARCHAR},
+      TAX_PAYER_NO = #{taxPayerNo,jdbcType=VARCHAR},
+      TAX_AUTH_CODE = #{taxAuthCode,jdbcType=VARCHAR},
+      TAX_COUNTRY_CODE = #{taxCountryCode,jdbcType=VARCHAR},
+      TAX_ORG = #{taxOrg,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

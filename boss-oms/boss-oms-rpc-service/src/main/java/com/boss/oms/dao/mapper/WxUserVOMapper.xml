@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boss.oms.dao.mapper.WxUserVOMapper">
+
+	<resultMap id="BaseResultMap" type="com.boss.oms.dao.model.WxUserVO">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="subscribe" jdbcType="INTEGER" property="subscribe" />
+		<result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+		<result column="NICK_NAME" jdbcType="VARCHAR" property="nickName" />
+		<result column="SEX" jdbcType="INTEGER" property="sex" />
+		<result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<result column="CITY" jdbcType="VARCHAR" property="city" />
+		<result column="COUNTRY" jdbcType="VARCHAR" property="country" />
+		<result column="HEAD_IMG_URL" jdbcType="VARCHAR" property="headImgUrl" />
+		<result column="HEAD_IMG_URL_WIDTH" jdbcType="INTEGER" property="headImgUrlWidth" />
+		<result column="HEAD_IMG_URL_HEIGHT" jdbcType="INTEGER" property="headImgUrlHeight" />
+		<result column="PRIVILEGE" jdbcType="VARCHAR" property="privilege" />
+		<result column="UNIONID" jdbcType="VARCHAR" property="unionid" />
+		<result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="groupid" jdbcType="INTEGER" property="groupid" />
+		<result column="account_originid" jdbcType="VARCHAR" property="accountOriginid" />
+	</resultMap>
+	<select id="selectWxUserList" resultMap="BaseResultMap">SELECT * FROM t_wx_user</select>
+	<!-- 缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	
+</mapper>
