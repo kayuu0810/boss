@@ -26,6 +26,8 @@ import java.util.List;
 @BaseService
 public class WxUserServiceImpl extends BaseServiceImpl<TWxUserMapper,TWxUser,TWxUserExample> implements WxUserService {
     private static Logger _log = LoggerFactory.getLogger(WxUserServiceImpl.class);
+
+
     @Autowired
     private WxUserVOMapper wxUserMapper;
 
