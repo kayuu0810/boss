@@ -1,4 +1,4 @@
-package com.boss.cms.dao;
+package com.boss.oms.dao;
 
 import com.boss.common.util.MybatisGeneratorUtil;
 import com.boss.common.util.PropertiesFileUtil;
