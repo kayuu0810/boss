@@ -64,7 +64,7 @@
         <!-- SSO认证中心 -->
         <init-param>
             <param-name>sso_server_url</param-name>
-            <param-value>http://twx.e-nci.com</param-value>
+            <param-value>http://boss.upms.com:1111</param-value>
         </init-param>
         <!-- 开发模式 -->
         <init-param>

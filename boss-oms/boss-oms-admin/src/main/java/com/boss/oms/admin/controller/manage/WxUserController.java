@@ -1,6 +1,11 @@
 package com.boss.oms.admin.controller.manage;
 
+import com.boss.common.base.BaseConstants;
 import com.boss.common.base.BaseController;
+import com.boss.common.base.BaseResult;
+import com.boss.oms.common.constant.OmsConstant;
+import com.boss.oms.common.constant.OmsResult;
+import com.boss.oms.common.constant.OmsResultConstant;
 import com.boss.oms.dao.model.TWxUser;
 import com.boss.oms.dao.model.TWxUserExample;
 import com.boss.oms.rpc.api.WxUserService;
@@ -12,10 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +37,7 @@ public class WxUserController extends BaseController {
     private WxUserService wxUserService;
 
     @ApiOperation(value = "微信用户首页")
-    @RequiresPermissions("oms:user:read")
+    @RequiresPermissions("oms:wxuser:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "/manage/wxuser/index";
@@ -43,7 +46,7 @@ public class WxUserController extends BaseController {
 
 
     @ApiOperation(value = "微信用户列表")
-    @RequiresPermissions("oms:user:read")
+    @RequiresPermissions("oms:wxuser:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list(
@@ -66,4 +69,22 @@ public class WxUserController extends BaseController {
         return result;
     }
 
+    @Deprecated
+    @ApiOperation(value = "更新微信用户页")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable("id") int id, ModelMap modelMap) {
+        TWxUser user = wxUserService.selectByPrimaryKey(id);
+        modelMap.put("user", user);
+        return "/manage/wxuser/update";
+    }
+
+
+    @ApiOperation(value = "删除微信用户")
+    @RequiresPermissions("upms:role:delete")
+    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object delete(@PathVariable("ids") String ids) {
+        int count = wxUserService.deleteByPrimaryKeys(ids);
+        return new OmsResult(OmsResultConstant.SUCCESS, count);
+    }
 }

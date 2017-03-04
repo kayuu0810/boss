@@ -59,7 +59,7 @@ public class MenuManageApiController extends BaseController{
     @ApiOperation(value = "对外提供获取菜单接口")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     @ResponseBody
-    public Object index(String callback,String systemId) {
+    public Object index(String callback,Integer systemId) {
         HashMap<Object, Object> reslutMap = Maps.newHashMapWithExpectedSize(2);
         HashMap<String, Integer> paramMaps = Maps.newHashMapWithExpectedSize(2);
         // 已注册系统

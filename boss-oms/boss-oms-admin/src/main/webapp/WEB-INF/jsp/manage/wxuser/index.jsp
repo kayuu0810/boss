@@ -12,108 +12,191 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>标签列表</title>
+	<jsp:include page="/resources/inc/head.jsp" flush="true"/>
 
-	<link href="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/boss-ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/boss-ui/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
-	<link href="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-
-	<link href="${basePath}/resources/boss-ui/css/common.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="main">
 	<div id="toolbar">
-		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus"></i> 新增标签</a>
+	<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus" onclick="createAction()"></i> 新增标签</a>
 		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑标签</a>
 		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close"></i> 删除标签</a>
 	</div>
 	<table id="table"></table>
 </div>
-<script src="${basePath}/resources/boss-ui/plugins/jquery.1.12.4.min.js"></script>
-<script src="${basePath}/resources/boss-ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
-<script src="${basePath}/resources/boss-ui/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
-<script src="${basePath}/resources/boss-ui/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="${basePath}/resources/boss-ui/plugins/waves-0.7.5/waves.min.js"></script>
+	<jsp:include page="/resources/inc/footer.jsp" flush="true"/>
 
-<script src="${basePath}/resources/boss-ui/js/common.js"></script>
-<script>
+	<script>
+	var $table = $('#table');
 	$(function() {
-		// bootstrap table初始化
-		$('#table').bootstrapTable({
-			url: '${basePath}/manage/user/list',
-			height: getHeight(),
-			striped: true,
-			search: true,
-			searchOnEnterKey: true,
-			showRefresh: true,
-			showToggle: true,
-			showColumns: true,
-			minimumCountColumns: 2,
-			showPaginationSwitch: true,
-			clickToSelect: true,
-			detailView: true,
-			detailFormatter: 'detailFormatter',
-			pagination: true,
-			paginationLoop: false,
-			classes: 'table table-hover table-no-bordered',
-			sidePagination: 'server',
-			idField: 'tag_id',
-			sortName: 'tag_id',
-			sortOrder: 'desc',
-			toolbar: '#toolbar',
-			columns: [
-				{field: 'state', checkbox: true},
-				{field: 'id', title: '编号', sortable: true, halign: 'center'},
-				{field: 'subscribe', title: '是否订阅', sortable: true, halign: 'center'},
-				{field: 'openId', title: 'openId', sortable: true, halign: 'center'},
-				{field: 'nickName', title: '昵称', sortable: true, halign: 'center'},
-				{field: 'sex', title: '性别', sortable: true, halign: 'center'},
-				{field: 'province', title: '省份', sortable: true, halign: 'center'},
-				{field: 'city', title: '城市', sortable: true, halign: 'center'},
-				{field: 'action', title: '操作', halign: 'center', align: 'center', formatter: 'actionFormatter', events: 'actionEvents'}
-			]
-		}).on('all.bs.table', function (e, name, args) {
-			$('[data-toggle="tooltip"]').tooltip();
-			$('[data-toggle="popover"]').popover();
-		});
-		$(window).resize(function () {
-			$('#table').bootstrapTable('resetView', {
-				height: getHeight()
-			});
-		});
+	// bootstrap table初始化
+	$table.bootstrapTable({
+	url: '${basePath}/manage/wxuser/list',
+	height: getHeight(),
+	striped: true,
+	search: true,
+	showRefresh: true,
+	showColumns: true,
+	minimumCountColumns: 2,
+	clickToSelect: true,
+	detailView: true,
+	detailFormatter: 'detailFormatter',
+	pagination: true,
+	paginationLoop: false,
+	sidePagination: 'server',
+	silentSort: false,
+	smartDisplay: false,
+	escape: true,
+	searchOnEnterKey: true,
+	idField: 'id',
+	maintainSelected: true,
+	toolbar: '#toolbar',
+	columns: [
+	{field: 'ck', checkbox: true},
+	{field: 'id', title: '编号', sortable: true, align: 'center'},
+	{field: 'subscribe', title: '是否订阅', formatter: 'subscribeFormatter'},
+	{field: 'openId', title: 'openId'},
+	{field: 'nickName', title: '昵称'},
+	{field: 'sex', title: '性别', formatter: 'sexFormatter'},
+	{field: 'province', title: '省份'},
+	{field: 'city', title: '城市'},
+	{field: 'headImgUrl', title: '用户头像', align: 'center', formatter: 'iconFormatter'},
+	{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
+	]
 	});
+	});
+
+	// 格式化操作按钮
 	function actionFormatter(value, row, index) {
-		return [
-			'<a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>　',
-			'<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-			'<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
-		].join('');
+	return [
+	'<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+	].join('');
+	}
+    //是否订阅
+	function subscribeFormatter(value){
+	return value==1?'是':'否';
+	}
+	//性别格式化
+	function sexFormatter(value){
+	switch(value)
+	{
+	case 1:
+	return  '男';
+	break;
+	case 2:
+	return  '女';
+	break;
+	default:
+	return  '未知';
 	}
 
-	window.actionEvents = {
-		'click .like': function (e, value, row, index) {
-			alert('You click like icon, row: ' + JSON.stringify(row));
-			console.log(value, row, index);
-		},
-		'click .edit': function (e, value, row, index) {
-			alert('You click edit icon, row: ' + JSON.stringify(row));
-			console.log(value, row, index);
-		},
-		'click .remove': function (e, value, row, index) {
-			alert('You click remove icon, row: ' + JSON.stringify(row));
-			console.log(value, row, index);
-		}
-	};
-	function detailFormatter(index, row) {
-		var html = [];
-		$.each(row, function (key, value) {
-			html.push('<p><b>' + key + ':</b> ' + value + '</p>');
-		});
-		return html.join('');
 	}
-	function getHeight() {
-		return $(window).height() - 20;
+	// 格式化图标
+	function iconFormatter(value, row, index) {
+	if(value == null){
+	return '--';
 	}
-</script>
+	return value == null ? '--':'<img src="' + value + '" width="30px" height="30px">';
+	}
+	// deleteAction
+	var deleteDialog;
+	function deleteAction() {
+	var rows = $table.bootstrapTable('getSelections');
+	if (rows.length != 1) {
+	$.confirm({
+	title: false,
+	content: '请选择一条记录！',
+	autoClose: 'cancel|3000',
+	backgroundDismiss: true,
+	buttons: {
+	cancel: {
+	text: '取消',
+	btnClass: 'waves-effect waves-button'
+	}
+	}
+	});
+	} else {
+	deleteDialog = $.confirm({
+	type: 'red',
+	animationSpeed: 300,
+	title: false,
+	content: '确认删除该角色吗？',
+	buttons: {
+	confirm: {
+	text: '确认',
+	btnClass: 'waves-effect waves-button',
+	action: function () {
+	var ids = new Array();
+	for (var i in rows) {
+	ids.push(rows[i].id);
+	}
+	$.ajax({
+	type: 'get',
+	url: '${basePath}/manage/wxuser/delete/' + ids.join("-"),
+	success: function(result) {
+	if (result.code != 1) {
+	if (result.data instanceof Array) {
+	$.each(result.data, function(index, value) {
+	$.confirm({
+	theme: 'dark',
+	animation: 'rotateX',
+	closeAnimation: 'rotateX',
+	title: false,
+	content: value.errorMsg,
+	buttons: {
+	confirm: {
+	text: '确认',
+	btnClass: 'waves-effect waves-button waves-light'
+	}
+	}
+	});
+	});
+	} else {
+	$.confirm({
+	theme: 'dark',
+	animation: 'rotateX',
+	closeAnimation: 'rotateX',
+	title: false,
+	content: result.data.errorMsg,
+	buttons: {
+	confirm: {
+	text: '确认',
+	btnClass: 'waves-effect waves-button waves-light'
+	}
+	}
+	});
+	}
+	} else {
+	deleteDialog.close();
+	$table.bootstrapTable('refresh');
+	}
+	},
+	error: function(XMLHttpRequest, textStatus, errorThrown) {
+	$.confirm({
+	theme: 'dark',
+	animation: 'rotateX',
+	closeAnimation: 'rotateX',
+	title: false,
+	content: textStatus,
+	buttons: {
+	confirm: {
+	text: '确认',
+	btnClass: 'waves-effect waves-button waves-light'
+	}
+	}
+	});
+	}
+	});
+	}
+	},
+	cancel: {
+	text: '取消',
+	btnClass: 'waves-effect waves-button'
+	}
+	}
+	});
+	}
+	}
+	</script>
 </body>
 </html>
