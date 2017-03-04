@@ -20,7 +20,7 @@
 	<div id="toolbar">
 	<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus" onclick="createAction()"></i> 新增标签</a>
 		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑标签</a>
-		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close"></i> 删除标签</a>
+		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close" onclick="deleteAction()"></i> 删除用户</a>
 	</div>
 	<table id="table"></table>
 </div>
@@ -120,7 +120,7 @@
 	type: 'red',
 	animationSpeed: 300,
 	title: false,
-	content: '确认删除该角色吗？',
+	content: '确认删除该用户吗？',
 	buttons: {
 	confirm: {
 	text: '确认',

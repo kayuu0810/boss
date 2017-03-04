@@ -193,8 +193,7 @@
         <ul>
         {{each data.upmsPermissions as subUpmsPermission}}
         {{if subUpmsPermission.pid == upmsPermission.permissionId }}
-        <li><a class="waves-effect" href="javascript:Tab.addTab('{{subUpmsPermission.name}}', '${basePath}
-        {{subUpmsPermission.uri}}');">{{subUpmsPermission.name}}</a></li>
+        <li><a class="waves-effect" href="javascript:Tab.addTab('{{subUpmsPermission.name}}', '{{subUpmsPermission.uri}}');">{{subUpmsPermission.name}}</a></li>
         {{/if}}
         {{/each}}
         </ul>
