@@ -27,4 +27,8 @@ public interface TBizUserInfoMapper {
     int updateByPrimaryKeySelective(TBizUserInfo record);
 
     int updateByPrimaryKey(TBizUserInfo record);
+
+    List<TBizUserInfo> findBizUserInfoList(TBizUserInfoExample example);
+
+
 }

@@ -10,8 +10,10 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
     <dubbo:protocol name="dubbo" port="20880"/>
 
-    <!-- 用户 -->
+    <!-- 微信用户 -->
     <bean id="wxUserServiceImpl" class="com.boss.oms.rpc.service.impl.WxUserServiceImpl"/>
     <dubbo:service interface="com.boss.oms.rpc.api.WxUserService" ref="wxUserServiceImpl" timeout="100000"/>
-
+    <!--业务员-->
+    <bean id="bizUserInfoServiceImpl" class="com.boss.oms.rpc.service.impl.TBizUserInfoServiceImpl"/>
+    <dubbo:service interface="com.boss.oms.rpc.api.TBizUserInfoService" ref="bizUserInfoServiceImpl" timeout="100000"/>
 </beans>

@@ -13,4 +13,6 @@
 
     <!-- 用户 -->
     <dubbo:reference id="userService" interface="com.boss.oms.rpc.api.WxUserService" mock="true"/>
-</beans>
+
+    <!--业务员-->
+    <dubbo:reference id="bizUserInfoService" interface="com.boss.oms.rpc.api.TBizUserInfoService" mock="true"/></beans>

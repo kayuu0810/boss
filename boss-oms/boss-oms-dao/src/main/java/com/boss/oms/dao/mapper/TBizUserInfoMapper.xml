@@ -517,5 +517,58 @@
       bank_branch = #{bankBranch,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!--获取业务员列表 转换城市CODE-->
+  <select id="findBizUserInfoList" parameterType="com.boss.oms.dao.model.TBizUserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    id,
+    terminal_type,
+    terminal_info,
+    open_id,
+    is_captain,
+    captain_available,
+    user_name,
+    id_card,
+    mobile,
+    TYPE,
+    nci_id,
+    address,
+    (SELECT
+    NAME
+    FROM t_base_address_code
+    WHERE CODE = province) AS province,
+    (SELECT
+    NAME
+    FROM t_base_address_code
+    WHERE CODE = city) AS city,
+    AREA,
+    bank_code,
+    bank_name,
+    bank_card_no,
+    source,
+    regist_type,
+    STATUS,
+    create_date,
+    update_date,
+    bank_branch
+    from t_biz_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

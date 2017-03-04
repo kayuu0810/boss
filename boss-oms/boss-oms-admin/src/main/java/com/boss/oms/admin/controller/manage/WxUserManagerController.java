@@ -1,9 +1,6 @@
 package com.boss.oms.admin.controller.manage;
 
-import com.boss.common.base.BaseConstants;
 import com.boss.common.base.BaseController;
-import com.boss.common.base.BaseResult;
-import com.boss.oms.common.constant.OmsConstant;
 import com.boss.oms.common.constant.OmsResult;
 import com.boss.oms.common.constant.OmsResultConstant;
 import com.boss.oms.dao.model.TWxUser;
@@ -30,9 +27,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("manage/wxuser")
 @Api(value="用户管理",description="用户管理")
-public class WxUserController extends BaseController {
+public class WxUserManagerController extends BaseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WxUserController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WxUserManagerController.class);
     @Autowired
     private WxUserService wxUserService;
 

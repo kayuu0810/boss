@@ -1,5 +1,6 @@
 package com.boss.common.listener;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.boss.common.annotation.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -12,7 +12,7 @@
           http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<!-- 装载service -->
-	<context:component-scan base-package="**.service" />
+	<context:component-scan base-package="**.service,com.boss.oms.rpc.api" />
 
 	<!-- 启动时初始化Spring上下文环境工具类 -->
 	<bean id="springContextUtil" class="com.boss.common.util.SpringContextUtil"></bean>

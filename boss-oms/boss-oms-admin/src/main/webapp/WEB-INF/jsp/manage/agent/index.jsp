@@ -11,16 +11,16 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>微信用户列表</title>
+	<title>业务员列表</title>
 	<jsp:include page="/resources/inc/head.jsp" flush="true"/>
 
 </head>
 <body>
 <div id="main">
 	<div id="toolbar">
-	<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus" onclick="createAction()"></i> 新增标签</a>
-		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑标签</a>
-		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close" onclick="deleteAction()"></i> 删除用户</a>
+	<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus" onclick="createAction()"></i> 新增</a>
+		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑</a>
+		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close" onclick="deleteAction()"></i> 删除</a>
 	</div>
 	<table id="table"></table>
 </div>
@@ -31,7 +31,7 @@
 	$(function() {
 	// bootstrap table初始化
 	$table.bootstrapTable({
-	url: '${basePath}/manage/wxuser/list',
+	url: '${basePath}/manage/agent/list',
 	height: getHeight(),
 	striped: true,
 	search: true,
@@ -54,13 +54,19 @@
 	columns: [
 	{field: 'ck', checkbox: true},
 	{field: 'id', title: '编号', sortable: true, align: 'center'},
-	{field: 'subscribe', title: '是否订阅', formatter: 'subscribeFormatter'},
-	{field: 'openId', title: 'openId'},
-	{field: 'nickName', title: '昵称'},
-	{field: 'sex', title: '性别', formatter: 'sexFormatter'},
+	{field: 'terminalType', title: '终端类型', formatter: 'terminalTypeFormatter'},
+	{field: 'isCaptain', title: '是否为团队长'},
+	{field: 'captainAvailable', title: '团队长是否有效'},
+	{field: 'userName', title: '姓名'},
+	{field: 'idCard', title: '身份证'},
+	{field: 'mobile', title: '手机号'},
 	{field: 'province', title: '省份'},
 	{field: 'city', title: '城市'},
-	{field: 'headImgUrl', title: '用户头像', align: 'center', formatter: 'iconFormatter'},
+	{field: 'area', title: '区域'},
+	{field: 'address', title: '详细地址'},
+	{field: 'bankName', title: '银行名称'},
+	{field: 'bankCardNo', title: '银行卡号'},
+	{field: 'registType', title: '注册方式'},
 	{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 	]
 	});
@@ -72,32 +78,11 @@
 	'<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
 	].join('');
 	}
-    //是否订阅
-	function subscribeFormatter(value){
-	return value==1?'是':'否';
-	}
-	//性别格式化
-	function sexFormatter(value){
-	switch(value)
-	{
-	case 1:
-	return  '男';
-	break;
-	case 2:
-	return  '女';
-	break;
-	default:
-	return  '未知';
+    // 终端类型
+	function terminalTypeFormatter(value){
+	return value==1?'微信':'APP';
 	}
 
-	}
-	// 格式化图标
-	function iconFormatter(value, row, index) {
-	if(value == null){
-	return '--';
-	}
-	return value == null ? '--':'<img src="' + value + '" width="30px" height="30px">';
-	}
 	// deleteAction
 	var deleteDialog;
 	function deleteAction() {
