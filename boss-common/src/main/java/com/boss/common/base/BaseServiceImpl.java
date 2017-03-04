@@ -6,6 +6,7 @@ import com.boss.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -50,8 +51,18 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 	public int deleteByPrimaryKey(Integer id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-			Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
-			Object result = deleteByPrimaryKey.invoke(mapper, id);
+
+			Class[] deleteByPrimaryKeys = getMethodParamTypes(mapper, "deleteByPrimaryKey");
+			Class clazz = deleteByPrimaryKeys[0];
+			Object result = null;
+			if(clazz.getName().equals(Long.class.getName())){
+				Long idL = id.longValue();
+				Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", idL.getClass());
+				result = deleteByPrimaryKey.invoke(mapper, idL);
+			}else if(clazz.getName().equals(Integer.class.getName())){
+				Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
+				result = deleteByPrimaryKey.invoke(mapper, id);
+			}
 			return Integer.parseInt(String.valueOf(result));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,8 +147,17 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 	public Record selectByPrimaryKey(Integer id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
-			Method selectByPrimaryKey = mapper.getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
-			Object result = selectByPrimaryKey.invoke(mapper, id);
+			Class[] selectByPrimaryKeys = getMethodParamTypes(mapper, "selectByPrimaryKey");
+			Class clazz = selectByPrimaryKeys[0];
+			Object result = null;
+			if(clazz.getName().equals(Long.class.getName())){
+				Long idL = id.longValue();
+				Method selectByPrimaryKey = mapper.getClass().getDeclaredMethod("selectByPrimaryKey", idL.getClass());
+				result = selectByPrimaryKey.invoke(mapper, idL);
+			}else if(clazz.getName().equals(Integer.class.getName())){
+				Method selectByPrimaryKey = mapper.getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
+				result = selectByPrimaryKey.invoke(mapper, id);
+			}
 			return (Record) result;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,9 +263,21 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 				if (StringUtils.isBlank(idStr)) {
 					continue;
 				}
-				Integer id = Integer.parseInt(idStr);
-				Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
-				Object result = deleteByPrimaryKey.invoke(mapper, id);
+				Class[] deleteByPrimaryKeys = getMethodParamTypes(mapper, "deleteByPrimaryKey");
+				Class clazz = deleteByPrimaryKeys[0];
+				Object result = null;
+				if(clazz.getName().equals(Long.class.getName())){
+					Long id = Long.valueOf(idStr);
+					Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
+					result = deleteByPrimaryKey.invoke(mapper, id);
+				}else if(clazz.getName().equals(Integer.class.getName())){
+					Integer id = Integer.valueOf(idStr);
+					Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
+					result = deleteByPrimaryKey.invoke(mapper, id);
+				}else if(clazz.getName().equals(String.class.getName())){
+					Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", idStr.getClass());
+					result = deleteByPrimaryKey.invoke(mapper, idStr);
+				}
 				count += Integer.parseInt(String.valueOf(result));
 			}
 			return count;
@@ -269,4 +301,27 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 		return (Class<Mapper>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	/**
+	 * 反射获取参数类型
+	 * @param classInstance 类的实现
+	 * @param methodName 方法名
+	 * @return
+	 * @throws ClassNotFoundException
+	 */
+	public static Class[]  getMethodParamTypes(Object classInstance,
+											   String methodName) throws ClassNotFoundException{
+		Class[] paramTypes = null;
+		Method[]  methods = classInstance.getClass().getMethods();//全部方法
+		for (int  i = 0;  i< methods.length; i++) {
+			if(methodName.equals(methods[i].getName())){//和传入方法名匹配
+				Class[] params = methods[i].getParameterTypes();
+				paramTypes = new Class[ params.length] ;
+				for (int j = 0; j < params.length; j++) {
+					paramTypes[j] = Class.forName(params[j].getName());
+				}
+				break;
+			}
+		}
+		return paramTypes;
+	}
 }

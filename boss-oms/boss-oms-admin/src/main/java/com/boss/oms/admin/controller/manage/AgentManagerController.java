@@ -1,6 +1,8 @@
 package com.boss.oms.admin.controller.manage;
 
 import com.boss.common.base.BaseController;
+import com.boss.oms.common.constant.OmsResult;
+import com.boss.oms.common.constant.OmsResultConstant;
 import com.boss.oms.dao.model.TBizUserInfo;
 import com.boss.oms.dao.model.TBizUserInfoExample;
 import com.boss.oms.rpc.api.TBizUserInfoService;
@@ -13,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,7 @@ public class AgentManagerController extends BaseController{
         return "/manage/agent/index";
     }
 
-    @ApiOperation(value = "微信用户列表")
+    @ApiOperation(value = "业务员列表")
     @RequiresPermissions("oms:agent:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -65,6 +64,16 @@ public class AgentManagerController extends BaseController{
         result.put("rows", rows);
         result.put("total", total);
         return result;
+    }
+
+
+    @ApiOperation(value = "删除业务员")
+    @RequiresPermissions("oms:agent:delete")
+    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object delete(@PathVariable("ids") String ids) {
+        int count = bizUserInfoService.deleteByPrimaryKeys(ids);
+        return new OmsResult(OmsResultConstant.SUCCESS, count);
     }
 
 }

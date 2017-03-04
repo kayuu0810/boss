@@ -54,9 +54,6 @@
 	columns: [
 	{field: 'ck', checkbox: true},
 	{field: 'id', title: '编号', sortable: true, align: 'center'},
-	{field: 'terminalType', title: '终端类型', formatter: 'terminalTypeFormatter'},
-	{field: 'isCaptain', title: '是否为团队长'},
-	{field: 'captainAvailable', title: '团队长是否有效'},
 	{field: 'userName', title: '姓名'},
 	{field: 'idCard', title: '身份证'},
 	{field: 'mobile', title: '手机号'},
@@ -67,6 +64,9 @@
 	{field: 'bankName', title: '银行名称'},
 	{field: 'bankCardNo', title: '银行卡号'},
 	{field: 'registType', title: '注册方式'},
+	{field: 'terminalType', title: '终端类型', formatter: 'terminalTypeFormatter'},
+	{field: 'isCaptain', title: '是否为团队长'},
+	{field: 'captainAvailable', title: '团队长是否有效'},
 	{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 	]
 	});
@@ -75,6 +75,7 @@
 	// 格式化操作按钮
 	function actionFormatter(value, row, index) {
 	return [
+	'<a class="update" href="javascript:;" onclick="updateAction()" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
 	'<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
 	].join('');
 	}
@@ -83,6 +84,36 @@
 	return value==1?'微信':'APP';
 	}
 
+
+
+	// 编辑
+	var updateDialog;
+	function updateAction() {
+	var rows = $table.bootstrapTable('getSelections');
+	if (rows.length != 1) {
+	$.confirm({
+	title: false,
+	content: '请选择一条记录！',
+	autoClose: 'cancel|3000',
+	backgroundDismiss: true,
+	buttons: {
+	cancel: {
+	text: '取消',
+	btnClass: 'waves-effect waves-button'
+	}
+	}
+	});
+	} else {
+	updateDialog = $.dialog({
+	animationSpeed: 300,
+	title: '编辑角色',
+	content: 'url:${basePath}/manage/agent/update/' + rows[0].id,
+	onContentReady: function () {
+	initMaterialInput();
+	}
+	});
+	}
+	}
 	// deleteAction
 	var deleteDialog;
 	function deleteAction() {
@@ -117,7 +148,7 @@
 	}
 	$.ajax({
 	type: 'get',
-	url: '${basePath}/manage/wxuser/delete/' + ids.join("-"),
+	url: '${basePath}/manage/agent/delete/' + ids.join("-"),
 	success: function(result) {
 	if (result.code != 1) {
 	if (result.data instanceof Array) {
