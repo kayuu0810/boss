@@ -1,6 +1,10 @@
 package com.boss.oms.admin.controller.manage;
 
+import com.baidu.unbiz.fluentvalidator.ComplexResult;
+import com.baidu.unbiz.fluentvalidator.FluentValidator;
+import com.baidu.unbiz.fluentvalidator.ResultCollectors;
 import com.boss.common.base.BaseController;
+import com.boss.common.validator.LengthValidator;
 import com.boss.oms.common.constant.OmsResult;
 import com.boss.oms.common.constant.OmsResultConstant;
 import com.boss.oms.dao.model.TBizUserInfo;
@@ -15,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -73,6 +78,37 @@ public class AgentManagerController extends BaseController{
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = bizUserInfoService.deleteByPrimaryKeys(ids);
+        return new OmsResult(OmsResultConstant.SUCCESS, count);
+    }
+
+    @ApiOperation(value = "修改角色")
+    @RequiresPermissions("upms:role:update")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable("id") int id, ModelMap modelMap) {
+        TBizUserInfo bizUserInfo = bizUserInfoService.selectByPrimaryKey(id);
+        modelMap.put("bizUserInfo", bizUserInfo);
+        return "/manage/agent/update";
+    }
+
+
+    @ApiOperation(value = "修改业务员")
+    @RequiresPermissions("upms:agent:update")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public Object update(@PathVariable("id") Long id, TBizUserInfo bizUserInfo) {
+     ComplexResult result = FluentValidator.checkAll()
+                .on(bizUserInfo.getUserName() ,new LengthValidator(1, 20, "业务员姓名"))
+                .on(bizUserInfo.getIdCard(), new LengthValidator(1, 30, "身份证"))
+                .on(bizUserInfo.getMobile(), new LengthValidator(1, 11, "手机号"))
+                .on(bizUserInfo.getBankName(), new LengthValidator(1, 50, "银行名称"))
+                .on(bizUserInfo.getBankName(), new LengthValidator(1, 50, "银行卡号"))
+                .doValidate()
+                .result(ResultCollectors.toComplex());
+        if (!result.isSuccess()) {
+            return new OmsResult(OmsResultConstant.INVALID_LENGTH, result.getErrors());
+        }
+        bizUserInfo.setId(id);
+      int count = bizUserInfoService.updateByPrimaryKeySelective(bizUserInfo);
         return new OmsResult(OmsResultConstant.SUCCESS, count);
     }
 

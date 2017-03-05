@@ -18,9 +18,8 @@
 <body>
 <div id="main">
 	<div id="toolbar">
-	<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus" onclick="createAction()"></i> 新增</a>
-		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑</a>
-		<a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close" onclick="deleteAction()"></i> 删除</a>
+		<a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit" ></i> 编辑</a>
+		<a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close" ></i> 删除</a>
 	</div>
 	<table id="table"></table>
 </div>
@@ -57,6 +56,8 @@
 	{field: 'userName', title: '姓名'},
 	{field: 'idCard', title: '身份证'},
 	{field: 'mobile', title: '手机号'},
+	{field: 'isCaptain', title: '是否为团队长'},
+	{field: 'captainAvailable', title: '团队长是否有效'},
 	{field: 'province', title: '省份'},
 	{field: 'city', title: '城市'},
 	{field: 'area', title: '区域'},
@@ -65,8 +66,6 @@
 	{field: 'bankCardNo', title: '银行卡号'},
 	{field: 'registType', title: '注册方式'},
 	{field: 'terminalType', title: '终端类型', formatter: 'terminalTypeFormatter'},
-	{field: 'isCaptain', title: '是否为团队长'},
-	{field: 'captainAvailable', title: '团队长是否有效'},
 	{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 	]
 	});
@@ -106,7 +105,7 @@
 	} else {
 	updateDialog = $.dialog({
 	animationSpeed: 300,
-	title: '编辑角色',
+	title: '编辑用户',
 	content: 'url:${basePath}/manage/agent/update/' + rows[0].id,
 	onContentReady: function () {
 	initMaterialInput();
