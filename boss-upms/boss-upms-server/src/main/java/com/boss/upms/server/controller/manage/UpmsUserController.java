@@ -3,6 +3,7 @@ package com.boss.upms.server.controller.manage;
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import com.baidu.unbiz.fluentvalidator.ResultCollectors;
+import com.boss.common.util.MD5Util;
 import com.boss.upms.dao.model.*;
 import com.boss.upms.rpc.api.*;
 import com.boss.common.base.BaseController;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户controller
@@ -193,6 +195,10 @@ public class UpmsUserController extends BaseController {
         }
         long time = System.currentTimeMillis();
         upmsUser.setCtime(time);
+        String uuid = UUID.randomUUID().toString().replaceAll("-","");
+        upmsUser.setSalt(uuid);
+        String passport = MD5Util.MD5(upmsUser.getPassword() + uuid);
+        upmsUser.setPassword(passport);
         int count = upmsUserService.insertSelective(upmsUser);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }

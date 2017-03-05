@@ -15,4 +15,9 @@
     <dubbo:reference id="userService" interface="com.boss.oms.rpc.api.WxUserService" mock="true"/>
 
     <!--业务员-->
-    <dubbo:reference id="bizUserInfoService" interface="com.boss.oms.rpc.api.TBizUserInfoService" mock="true"/></beans>
+    <dubbo:reference id="bizUserInfoService" interface="com.boss.oms.rpc.api.TBizUserInfoService" mock="true"/>
+    <!--保单管理-->
+    <dubbo:reference id="salPolicyService" interface="com.boss.oms.rpc.api.TSalPolicyService" mock="true"/>
+    <!--保险公司-->
+    <dubbo:reference id="baseInsuranceCodeService" interface="com.boss.oms.rpc.api.TBaseInsuranceCodeService" mock="true"/>
+</beans>

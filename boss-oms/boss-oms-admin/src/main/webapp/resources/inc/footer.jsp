@@ -14,4 +14,7 @@
 <script src="${basePath}/resources/boss-ui/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="${basePath}/resources/boss-ui/plugins/select2/js/select2.min.js"></script>
 <script src="${basePath}/resources/boss-ui/plugins/zTree_v3/js/jquery.ztree.all.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="${basePath}/resources/boss-ui/js/common.js"></script>
+<script src="${basePath}/resources/boss-ui/plugins/jquery.Object.js"></script>

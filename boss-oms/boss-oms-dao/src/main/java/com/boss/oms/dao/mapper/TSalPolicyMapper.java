@@ -27,4 +27,7 @@ public interface TSalPolicyMapper {
     int updateByPrimaryKeySelective(TSalPolicy record);
 
     int updateByPrimaryKey(TSalPolicy record);
+
+
+
 }

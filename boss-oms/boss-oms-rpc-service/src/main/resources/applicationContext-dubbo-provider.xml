@@ -12,8 +12,15 @@
 
     <!-- 微信用户 -->
     <bean id="wxUserServiceImpl" class="com.boss.oms.rpc.service.impl.WxUserServiceImpl"/>
-    <dubbo:service interface="com.boss.oms.rpc.api.WxUserService" ref="wxUserServiceImpl" timeout="100000"/>
+    <dubbo:service interface="com.boss.oms.rpc.api.WxUserService" ref="wxUserServiceImpl" timeout="10000"/>
     <!--业务员-->
     <bean id="bizUserInfoServiceImpl" class="com.boss.oms.rpc.service.impl.TBizUserInfoServiceImpl"/>
-    <dubbo:service interface="com.boss.oms.rpc.api.TBizUserInfoService" ref="bizUserInfoServiceImpl" timeout="100000"/>
+    <dubbo:service interface="com.boss.oms.rpc.api.TBizUserInfoService" ref="bizUserInfoServiceImpl" timeout="10000"/>
+    <!--保单管理-->
+    <bean id="salPolicyServiceImpl" class="com.boss.oms.rpc.service.impl.TSalPolicyServiceImpl"></bean>
+    <dubbo:service interface="com.boss.oms.rpc.api.TSalPolicyService" ref="salPolicyServiceImpl" timeout="10000"/>
+
+    <bean id="baseInsuranceCodeServiceImpl" class="com.boss.oms.rpc.service.impl.TBaseInsuranceCodeServiceImpl"></bean>
+    <dubbo:service interface="com.boss.oms.rpc.api.TBaseInsuranceCodeService" ref="baseInsuranceCodeServiceImpl" timeout="10000"/>
+
 </beans>
