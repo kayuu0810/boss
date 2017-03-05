@@ -536,14 +536,12 @@
     TYPE,
     nci_id,
     address,
+    IFNULL ((SELECT NAME FROM t_base_address_code WHERE CODE = province),(SELECT NAME FROM t_base_address_code WHERE CODE = city LIMIT 0,1)) AS province,
     (SELECT
     NAME
     FROM t_base_address_code
-    WHERE CODE = province) AS province,
-    (SELECT
-    NAME
-    FROM t_base_address_code
-    WHERE CODE = city) AS city,
+    WHERE CODE = city
+    LIMIT 0,1) AS city,
     AREA,
     bank_code,
     bank_name,
