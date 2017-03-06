@@ -33,22 +33,8 @@
 	<input type="text" class="form-control" name="licenseNo" id="licenseNo"/>
 	</div>
 	<div class="form-group col-md-2">
-	<label for="owner">车主</label>
-	<input type="text" class="form-control" name="owner" id="owner"/>
-	</div>
-	<div class="form-group col-md-2" style="margin: 0 auto;">
-	<label class="sr-only">保单状态：</label>
-	<select class="form-control col-md-2" name="insuranceCompany" id="insuranceCompany"
-	placeholder="保险公司">
-	<option value="">请选择保险公司</option>
-	<option value="sunshine">阳光保险</option>
-	<option value="chinese">中华保险</option>
-	<option value="PICC">人保财险</option>
-	<option value="PINGAN">平安保险</option>
-	<option value="CPIC">太平洋保险</option>
-	<option value="CHINALIFE">国寿财险</option>
-	<option value="CIC">中华联合</option>
-	</select>
+	<label for="carOwner">车主</label>
+	<input type="text" class="form-control" name="carOwner" id="carOwner"/>
 	</div>
 	<div class="form-group col-md-2" style="margin: 0 auto;">
 	<label class="sr-only">订单状态：</label>
@@ -177,6 +163,7 @@
 	data:$('#searchForm').serialize(),
 	url: '${basePath}/manage/policy/list',
 	success: function(result) {
+	$table.bootstrapTable('refresh');
 	}
 	});
 	}

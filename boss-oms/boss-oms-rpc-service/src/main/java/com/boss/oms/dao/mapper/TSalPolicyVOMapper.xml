@@ -14,7 +14,7 @@
 		sph.NAME             AS holderName,
 		spi.NAME             AS insuredName,
 		so.PAY_AMOUNT        AS payAmount,
-		soc.PAY_AMOUNT AS padAmount,
+		soc.PAY_AMOUNT       AS padAmount,
 		voi.NAME             AS carOwner,
 		DATE_FORMAT(soc.REALITY_PAY_TIME,'%y-%m-%d %T') AS payTime
 		FROM t_sal_policy sp
@@ -33,6 +33,21 @@
 		LEFT JOIN t_vehicle_owner_info voi
 		ON vdi.OWNER_ID = voi.ID
 		WHERE 1 = 1
+		<if test="orderNo != null">
+		AND	so.order_no = #{orderNo}
+		</if>
+		<if test="policyCode != null">
+		AND sp.policy_code=  #{policyCode}
+		</if>
+		<if test="licenseNo != null">
+		AND vdi.license_no = #{licenseNo}
+	    </if>
+		<if test="carOwner != null">
+			AND voi.NAME  = #{carOwner}
+		</if>
+		<!--<if test="policyStatus != null">
+			AND sp.STATUS  = #{policyStatus}
+		</if>-->
 		<if test="orderByClause != null">
 			order by ${orderByClause}
 		</if>
@@ -66,6 +81,24 @@
 		LEFT JOIN t_vehicle_owner_info voi
 		ON vdi.OWNER_ID = voi.ID
 		WHERE 1 = 1
+		<if test="orderNo != null">
+			AND	so.order_no = #{orderNo}
+		</if>
+		<if test="policyCode != null">
+			AND sp.policy_code=  #{policyCode}
+		</if>
+		<if test="licenseNo != null">
+			AND vdi.license_no = #{licenseNo}
+		</if>
+		<if test="carOwner != null">
+			AND voi.NAME  = #{carOwner}
+		</if>
+		<!--<if test="policyStatus != null">
+			AND sp.STATUS  = #{policyStatus}
+		</if>-->
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
 		<if test="orderByClause != null">
 			order by ${orderByClause}
 		</if>

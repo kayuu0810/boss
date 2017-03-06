@@ -9,6 +9,8 @@ import java.io.Serializable;
  * Created by Kayuu on 2017/3/5.
  */
 public class TSalPolicyVO extends BaseVO implements Serializable{
+
+
     private Long id;
     /**
      * 订单号
