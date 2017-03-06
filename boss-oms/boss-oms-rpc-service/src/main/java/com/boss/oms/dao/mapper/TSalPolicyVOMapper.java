@@ -9,5 +9,8 @@ import java.util.List;
  */
 public interface TSalPolicyVOMapper {
 
-    List<TSalPolicyVO> selectTSalPolicyVOList();
+    List<TSalPolicyVO> selectTSalPolicyVOList(TSalPolicyVO salPolicyVO);
+
+    long countByTSalPolicyVOExample(TSalPolicyVO salPolicyVO);
+
 }

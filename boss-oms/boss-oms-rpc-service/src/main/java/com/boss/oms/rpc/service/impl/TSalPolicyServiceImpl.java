@@ -26,7 +26,12 @@ public class TSalPolicyServiceImpl extends BaseServiceImpl<TSalPolicyMapper,TSal
     @Autowired
     private TSalPolicyVOMapper salPolicyVOMapper;
 
-    public List<TSalPolicyVO> selectTSalPolicyVOList() {
-        return salPolicyVOMapper.selectTSalPolicyVOList();
+
+    public List<TSalPolicyVO> selectTSalPolicyVOList(TSalPolicyVO salPolicyVO) {
+        return salPolicyVOMapper.selectTSalPolicyVOList(salPolicyVO);
+    }
+
+    public long countByTSalPolicyVOExample(TSalPolicyVO salPolicyVO) {
+        return salPolicyVOMapper.countByTSalPolicyVOExample(salPolicyVO);
     }
 }

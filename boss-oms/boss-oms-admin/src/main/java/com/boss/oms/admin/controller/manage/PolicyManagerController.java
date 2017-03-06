@@ -14,7 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,19 +60,14 @@ public class PolicyManagerController extends BaseController{
             TSalPolicyVO salPolicyVO
             ) {
         LOG.info("查询保单信息>>>list>>{}", JsonUtil.toJSONString(salPolicyVO));
-        TSalPolicyExample salPolicyExample = new TSalPolicyExample();
-        salPolicyExample.setOffset(offset);
-        salPolicyExample.setLimit(limit);
-        TSalPolicyExample.Criteria criteria = salPolicyExample.createCriteria();
-       /* if(salPolicyVO.getOrderNo() !=null){
-            criteria.andOrderIdEqualTo()
-        }*/
+        salPolicyVO.setOffset(offset);
+        salPolicyVO.setLimit(limit);
         if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
-            salPolicyExample.setOrderByClause(sort + " " + order);
+            salPolicyVO.setOrderByClause(sort + " " + order);
         }
-        List<TSalPolicy> rows = salPolicyService.selectByExample(salPolicyExample);
-        long total = salPolicyService.countByExample(salPolicyExample);
-        Map<String, Object> result = new HashMap<String, Object>();
+        List<TSalPolicyVO>  rows = salPolicyService.selectTSalPolicyVOList(salPolicyVO);
+        long total = salPolicyService.countByTSalPolicyVOExample(salPolicyVO);
+       Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", rows);
         result.put("total", total);
         return result;

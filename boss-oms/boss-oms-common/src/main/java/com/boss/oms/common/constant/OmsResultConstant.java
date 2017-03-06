@@ -1,20 +1,14 @@
 package com.boss.oms.common.constant;
 
 /**
- * upms系统接口结果常量枚举类
- * Created by Kayuu on 2017/2/18.
+ * cms系统接口结果常量枚举类
+ * Created by shuzheng on 2017/2/19.
  */
 public enum OmsResultConstant {
 
     SUCCESS(1, "success"),
-
     INVALID_LENGTH(10001, "Invalid length"),
-
-    EMPTY_USERNAME(10101, "Username cannot be empty"),
-    EMPTY_PASSWORD(10102, "Password cannot be empty"),
-    INVALID_USERNAME(10103, "Account does not exist"),
-    INVALID_PASSWORD(10104, "Password error"),
-    INVALID_ACCOUNT(10105, "Invalid account");
+    FILE_TYPE_ERROR(20001, "File type not supported!");
 
     public int code;
 

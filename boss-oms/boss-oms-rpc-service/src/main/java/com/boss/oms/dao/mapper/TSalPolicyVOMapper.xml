@@ -4,9 +4,80 @@
 
 
 	<!--获取保单列表-->
-	<select id="selectTSalPolicyVOList" resultType="com.boss.oms.dao.model.TSalPolicyVO">
-     SELECT * FROM t_sal_policy
+	<select id="selectTSalPolicyVOList" parameterType="com.boss.oms.dao.model.TSalPolicyVO" resultType="com.boss.oms.dao.model.TSalPolicyVO">
+		SELECT
+		sp.ID                AS id,
+		so.order_no          AS orderNo,
+		sp.policy_code       AS policyCode,
+		bui.user_name        AS agentName,
+		vdi.license_no        AS licenseNo,
+		sph.NAME             AS holderName,
+		spi.NAME             AS insuredName,
+		so.PAY_AMOUNT        AS payAmount,
+		soc.PAY_AMOUNT AS padAmount,
+		voi.NAME             AS carOwner,
+		DATE_FORMAT(soc.REALITY_PAY_TIME,'%y-%m-%d %T') AS payTime
+		FROM t_sal_policy sp
+		LEFT JOIN t_sal_order so
+		ON so.ID = sp.ORDER_ID
+		LEFT JOIN t_sal_policy_holder sph
+		ON sp.ID = sph.POLICY_ID
+		LEFT JOIN t_sal_policy_insured spi
+		ON sp.ID = spi.POLICY_ID
+		LEFT JOIN t_sal_order_charge soc
+		ON so.id = soc.ORDER_ID
+		LEFT JOIN t_biz_user_info bui
+		ON so.USER_ID = bui.id
+		LEFT JOIN t_vehicle_detail_info vdi
+		ON sp.VEHICLE_ID = vdi.ID
+		LEFT JOIN t_vehicle_owner_info voi
+		ON vdi.OWNER_ID = voi.ID
+		WHERE 1 = 1
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="limit != null">
+			<if test="offset != null">
+				limit ${offset}, ${limit}
+			</if>
+			<if test="offset == null">
+				limit ${limit}
+			</if>
+		</if>
     </select>
+
+	<!--获取总数-->
+	<select id="countByTSalPolicyVOExample" parameterType="com.boss.oms.dao.model.TSalPolicyVO" resultType="java.lang.Long">
+		SELECT
+		count(1)
+		FROM t_sal_policy sp
+		LEFT JOIN t_sal_order so
+		ON so.ID = sp.ORDER_ID
+		LEFT JOIN t_sal_policy_holder sph
+		ON sp.ID = sph.POLICY_ID
+		LEFT JOIN t_sal_policy_insured spi
+		ON sp.ID = spi.POLICY_ID
+		LEFT JOIN t_sal_order_charge soc
+		ON so.id = soc.ORDER_ID
+		LEFT JOIN t_biz_user_info bui
+		ON so.USER_ID = bui.id
+		LEFT JOIN t_vehicle_detail_info vdi
+		ON sp.VEHICLE_ID = vdi.ID
+		LEFT JOIN t_vehicle_owner_info voi
+		ON vdi.OWNER_ID = voi.ID
+		WHERE 1 = 1
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="limit != null">
+			<if test="offset != null">
+				limit ${offset}, ${limit}
+			</if>
+			<if test="offset == null">
+				limit ${limit}
+			</if>
+		</if>
+	</select>
 
 
 	<!-- 缓存 -->

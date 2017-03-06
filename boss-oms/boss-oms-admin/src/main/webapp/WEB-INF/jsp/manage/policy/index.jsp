@@ -118,24 +118,20 @@
 	columns: [
 	{field: 'ck', checkbox: true},
 	{field: 'id', title: '编号', sortable: true, align: 'center'},
-	{field: 'userName', title: '姓名'},
-	{field: 'idCard', title: '身份证'},
-	{field: 'mobile', title: '手机号'},
-	{field: 'isCaptain', title: '是否为团队长'},
-	{field: 'captainAvailable', title: '团队长是否有效'},
-	{field: 'province', title: '省份'},
-	{field: 'city', title: '城市'},
-	{field: 'area', title: '区域'},
-	{field: 'address', title: '详细地址'},
-	{field: 'bankName', title: '银行名称'},
-	{field: 'bankCardNo', title: '银行卡号'},
-	{field: 'registType', title: '注册方式'},
-	{field: 'terminalType', title: '终端类型', formatter: 'terminalTypeFormatter'},
+	{field: 'orderNo', title: '订单号'},
+	{field: 'policyCode', title: '保单号'},
+	{field: 'agentName', title: '业务员姓名'},
+	{field: 'licenseNo', title: '车牌号'},
+	{field: 'holderName', title: '投保人'},
+	{field: 'insuredName', title: '被保人'},
+	{field: 'payAmount', title: '支付金额'},
+	{field: 'padAmount', title: '实际支付金额'},
+	{field: 'carOwner', title: '车主'},
+	{field: 'payTime', title: '支付时间'},
 	{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 	]
 	});
 	});
-
 	// 格式化操作按钮
 	function actionFormatter(value, row, index) {
 	return [
@@ -143,13 +139,6 @@
 	'<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
 	].join('');
 	}
-    // 终端类型
-	function terminalTypeFormatter(value){
-	return value==1?'微信':'APP';
-	}
-
-
-
 	// 编辑
 	var updateDialog;
 	function updateAction() {

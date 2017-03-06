@@ -14,5 +14,17 @@ import java.util.List;
  */
 public interface TSalPolicyService extends BaseService<TSalPolicy , TSalPolicyExample> {
 
-    List<TSalPolicyVO> selectTSalPolicyVOList();
+    /**
+     * 查询保单VO 列表
+     * @param salPolicyVO
+     * @return
+     */
+    List<TSalPolicyVO> selectTSalPolicyVOList(TSalPolicyVO salPolicyVO);
+
+    /**
+     * 统计保单数据
+     * @param salPolicyVO
+     * @return
+     */
+    long countByTSalPolicyVOExample(TSalPolicyVO salPolicyVO);
 }

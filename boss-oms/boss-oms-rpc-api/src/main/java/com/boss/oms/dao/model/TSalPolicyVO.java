@@ -1,18 +1,24 @@
 package com.boss.oms.dao.model;
 
+import com.boss.oms.dao.model.base.BaseVO;
+
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 保单VO
  * Created by Kayuu on 2017/3/5.
  */
-public class TSalPolicyVO  implements Serializable{
-
+public class TSalPolicyVO extends BaseVO implements Serializable{
+    private Long id;
     /**
      * 订单号
      */
     private String orderNo;
+
+    /**
+     * 保单号
+     */
+    private String policyCode;
     /**
      * 业务员姓名
      */
@@ -151,5 +157,22 @@ public class TSalPolicyVO  implements Serializable{
 
     public void setInsuranceName(String insuranceName) {
         this.insuranceName = insuranceName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getPolicyCode() {
+        return policyCode;
+    }
+
+    public void setPolicyCode(String policyCode) {
+        this.policyCode = policyCode;
     }
 }

@@ -12,7 +12,12 @@ import java.util.List;
  * Created by Kayuu on 2017/3/5.
  */
 public class TSalPolicyServiceMock extends BaseServiceMock<TSalPolicyMapper,TSalPolicy,TSalPolicyExample> implements TSalPolicyService {
-    public List<TSalPolicyVO> selectTSalPolicyVOList() {
+
+    public List<TSalPolicyVO> selectTSalPolicyVOList(TSalPolicyVO salPolicyVO) {
         return null;
+    }
+
+    public long countByTSalPolicyVOExample(TSalPolicyVO salPolicyVO) {
+        return 0;
     }
 }
