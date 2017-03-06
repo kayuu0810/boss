@@ -26,7 +26,7 @@ function getHeight() {
 function detailFormatter(index, row) {
 	var html = [];
 	$.each(row, function (key, value) {
-        if(value == null || "null" == value.toLowerCase()){
+        if(value == null){
             value = '--';
         }
 		html.push('<p><b>' + key + ':</b> ' + value + '</p>');
