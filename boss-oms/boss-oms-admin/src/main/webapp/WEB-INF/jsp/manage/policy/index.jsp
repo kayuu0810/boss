@@ -13,13 +13,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>保单管理列表</title>
 	<jsp:include page="/resources/inc/head.jsp" flush="true"/>
-
 </head>
 <body>
 <div id="main">
-	<div id="toolbar">
-	<div class="title-action">
-	<form role="form" id="searchForm">
+    <div class="form-inline">
+	<form role="form" id="searchForm" class="clearfix" style="border: 1px solid #ddd; border-radius: 2px;">
 	<div class="form-group col-md-2">
 	<label for="orderNo">订单号</label>
 	<input id="orderNo" type="text" class="form-control" name="orderNo" maxlength="20">
@@ -36,7 +34,7 @@
 	<label for="carOwner">车主</label>
 	<input type="text" class="form-control" name="carOwner" id="carOwner"/>
 	</div>
-	<div class="form-group col-md-2" style="margin: 0 auto;">
+	<div class="form-group col-md-2" style="margin: 4px auto 0px;">
 	<label class="sr-only">订单状态：</label>
 	<select class="form-control" name="policyStatus" id="policyStatus" placeholder="订单状态">
 	<option value="">请选择保单状态</option>
@@ -67,12 +65,13 @@
 	</div>
 	</form>
 	</div>
+	<div id="toolbar">
 	<a class="waves-effect waves-button" href="javascript:;" onclick="selectAction()"><i class="zmdi zmdi-search" ></i>查询</a>
 	<a class="waves-effect waves-button" href="javascript:;" onclick="exportAction()"><i class="zmdi zmdi-import-export" ></i>导出</a>
 	<a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit" ></i> 编辑</a>
 	<a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close" ></i> 删除</a>
 	</div>
-	<table id="table"></table>
+	<table id="table" data-search="true"></table>
 </div>
 	<jsp:include page="/resources/inc/footer.jsp" flush="true"/>
 
@@ -82,9 +81,10 @@
 	// bootstrap table初始化
 	$table.bootstrapTable({
 	url: '${basePath}/manage/policy/list',
+	queryParams: queryParams,
 	height: getHeight(),
 	striped: true,
-	search: false,
+	search: true,
 	showRefresh: true,
 	showColumns: true,
 	minimumCountColumns: 2,
@@ -101,29 +101,69 @@
 	idField: 'id',
 	maintainSelected: true,
 	toolbar: '#toolbar',
-	columns: [
-	{field: 'ck', checkbox: true},
-	{field: 'id', title: '编号', sortable: true, align: 'center'},
-	{field: 'orderNo', title: '订单号'},
-	{field: 'policyCode', title: '保单号'},
-	{field: 'agentName', title: '业务员姓名'},
-	{field: 'licenseNo', title: '车牌号'},
-	{field: 'holderName', title: '投保人'},
-	{field: 'insuredName', title: '被保人'},
-	{field: 'payAmount', title: '支付金额'},
-	{field: 'padAmount', title: '实际支付金额'},
-	{field: 'carOwner', title: '车主'},
-	{field: 'payTime', title: '支付时间'},
-	{field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
-	]
+	columns: [{
+	field: 'ck',
+	checkbox: true
+	},
+	{
+	field: 'id',
+	title: '编号',
+	sortable: true,
+	align: 'center'
+	},
+	{
+	field: 'orderNo',
+	title: '订单号'
+	},
+	{
+	field: 'policyCode',
+	title: '保单号'
+	},
+	{
+	field: 'agentName',
+	title: '业务员姓名'
+	},
+	{
+	field: 'licenseNo',
+	title: '车牌号'
+	},
+	{
+	field: 'holderName',
+	title: '投保人'
+	},
+	{
+	field: 'insuredName',
+	title: '被保人'
+	},
+	{
+	field: 'payAmount',
+	title: '支付金额'
+	},
+	{
+	field: 'padAmount',
+	title: '实际支付金额'
+	},
+	{
+	field: 'carOwner',
+	title: '车主'
+	},
+	{
+	field: 'payTime',
+	title: '支付时间'
+	},
+	{
+	field: 'action',
+	title: '操作',
+	align: 'center',
+	formatter: 'actionFormatter',
+	events: 'actionEvents',
+	clickToSelect: false
+	}]
 	});
 	});
 	// 格式化操作按钮
 	function actionFormatter(value, row, index) {
-	return [
-	'<a class="update" href="javascript:;" onclick="updateAction()" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
-	'<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
-	].join('');
+	return ['<a class="update" href="javascript:;" onclick="updateAction()" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　', '<a class="delete" href="javascript:;" onclick="deleteAction()" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'].join('');
 	}
 	// 编辑
 	var updateDialog;
@@ -147,7 +187,7 @@
 	animationSpeed: 300,
 	title: '编辑用户',
 	content: 'url:${basePath}/manage/policy/update/' + rows[0].id,
-	onContentReady: function () {
+	onContentReady: function() {
 	initMaterialInput();
 	}
 	});
@@ -156,18 +196,20 @@
 	/**
 	*条件搜索
 	*/
-	function selectAction(){
-	console.log(1);
-	$.ajax({
-	type: 'post',
-	data:$('#searchForm').serialize(),
-	url: '${basePath}/manage/policy/list',
-	success: function(result) {
-	$table.bootstrapTable('refresh');
-	}
+	//表格数据获取的参数
+	function queryParams(data) {
+	var params = {};
+	$('#searchForm').find('input[name]').each(function() {
+	params[$(this).attr('name')] = $(this).val();
 	});
+	params.limit = data.limit,
+	params.offset = data.offset,
+	params.sortOrder = data.order
+	return params;
 	}
-
+	function selectAction() {
+	$table.bootstrapTable('refresh');
+	};
 
 	// deleteAction
 	var deleteDialog;
@@ -196,7 +238,7 @@
 	confirm: {
 	text: '确认',
 	btnClass: 'waves-effect waves-button',
-	action: function () {
+	action: function() {
 	var ids = new Array();
 	for (var i in rows) {
 	ids.push(rows[i].id);
@@ -207,7 +249,8 @@
 	success: function(result) {
 	if (result.code != 1) {
 	if (result.data instanceof Array) {
-	$.each(result.data, function(index, value) {
+	$.each(result.data,
+	function(index, value) {
 	$.confirm({
 	theme: 'dark',
 	animation: 'rotateX',

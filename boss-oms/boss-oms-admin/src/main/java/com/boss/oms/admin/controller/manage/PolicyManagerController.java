@@ -2,8 +2,6 @@ package com.boss.oms.admin.controller.manage;
 
 import com.boss.common.base.BaseController;
 import com.boss.common.util.JsonUtil;
-import com.boss.oms.dao.model.TSalPolicy;
-import com.boss.oms.dao.model.TSalPolicyExample;
 import com.boss.oms.dao.model.TSalPolicyVO;
 import com.boss.oms.rpc.api.TSalPolicyService;
 import io.swagger.annotations.Api;

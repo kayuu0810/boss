@@ -44,13 +44,13 @@ public class TSalPolicyVO extends BaseVO implements Serializable{
     /**
      * 实际支付金额
      */
-    private double padAmount;
+    private Double padAmount;
 
 
     /**
      * 支付金额
      */
-    private double payAmount;
+    private Double payAmount;
 
     /**
      * 车主
@@ -72,6 +72,13 @@ public class TSalPolicyVO extends BaseVO implements Serializable{
      */
     private String insuranceName;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getOrderNo() {
         return orderNo;
@@ -79,6 +86,14 @@ public class TSalPolicyVO extends BaseVO implements Serializable{
 
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
+    }
+
+    public String getPolicyCode() {
+        return policyCode;
+    }
+
+    public void setPolicyCode(String policyCode) {
+        this.policyCode = policyCode;
     }
 
     public String getAgentName() {
@@ -113,19 +128,19 @@ public class TSalPolicyVO extends BaseVO implements Serializable{
         this.insuredName = insuredName;
     }
 
-    public double getPadAmount() {
+    public Double getPadAmount() {
         return padAmount;
     }
 
-    public void setPadAmount(double padAmount) {
+    public void setPadAmount(Double padAmount) {
         this.padAmount = padAmount;
     }
 
-    public double getPayAmount() {
+    public Double getPayAmount() {
         return payAmount;
     }
 
-    public void setPayAmount(double payAmount) {
+    public void setPayAmount(Double payAmount) {
         this.payAmount = payAmount;
     }
 
@@ -159,22 +174,5 @@ public class TSalPolicyVO extends BaseVO implements Serializable{
 
     public void setInsuranceName(String insuranceName) {
         this.insuranceName = insuranceName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getPolicyCode() {
-        return policyCode;
-    }
-
-    public void setPolicyCode(String policyCode) {
-        this.policyCode = policyCode;
     }
 }

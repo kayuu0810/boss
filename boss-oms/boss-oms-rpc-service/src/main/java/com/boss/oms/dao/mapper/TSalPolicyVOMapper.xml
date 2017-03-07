@@ -33,16 +33,16 @@
 		LEFT JOIN t_vehicle_owner_info voi
 		ON vdi.OWNER_ID = voi.ID
 		WHERE 1 = 1
-		<if test="orderNo != null">
-		AND	so.order_no = #{orderNo}
+		<if test="orderNo != null and orderNo != ''">
+			AND	so.order_no = #{orderNo}
 		</if>
-		<if test="policyCode != null">
-		AND sp.policy_code=  #{policyCode}
+		<if test="policyCode != null and policyCode !=''">
+			AND sp.policy_code=  #{policyCode}
 		</if>
-		<if test="licenseNo != null">
-		AND vdi.license_no = #{licenseNo}
-	    </if>
-		<if test="carOwner != null">
+		<if test="licenseNo != null and licenseNo != ''">
+			AND vdi.license_no = #{licenseNo}
+		</if>
+		<if test="carOwner != null and carOwner !=''">
 			AND voi.NAME  = #{carOwner}
 		</if>
 		<!--<if test="policyStatus != null">
@@ -81,16 +81,16 @@
 		LEFT JOIN t_vehicle_owner_info voi
 		ON vdi.OWNER_ID = voi.ID
 		WHERE 1 = 1
-		<if test="orderNo != null">
+		<if test="orderNo != null and orderNo != ''">
 			AND	so.order_no = #{orderNo}
 		</if>
-		<if test="policyCode != null">
+		<if test="policyCode != null and policyCode !=''">
 			AND sp.policy_code=  #{policyCode}
 		</if>
-		<if test="licenseNo != null">
+		<if test="licenseNo != null and licenseNo != ''">
 			AND vdi.license_no = #{licenseNo}
 		</if>
-		<if test="carOwner != null">
+		<if test="carOwner != null and carOwner !=''">
 			AND voi.NAME  = #{carOwner}
 		</if>
 		<!--<if test="policyStatus != null">
